@@ -6,6 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { FormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -16,18 +20,24 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     CommonModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatListModule,
-    MatCardModule,
+    FormsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
     MatIconModule,
-    MatSidenavModule
+    MatListModule
   ],
   exports: [
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatListModule,
-    MatCardModule,
+    FormsModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
     MatIconModule,
-    MatSidenavModule
+    MatListModule
   ]
 })
 export class MaterialModule { }
