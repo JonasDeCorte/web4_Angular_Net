@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import {MatGridListModule} from '@angular/material/grid-list';
+
 
 
 
@@ -26,7 +28,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    
   ],
   exports: [
     BrowserAnimationsModule,
@@ -37,7 +41,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule,
+    
   ]
 })
 export class MaterialModule { }
