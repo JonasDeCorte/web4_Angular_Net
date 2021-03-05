@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 import { MainNavComponent } from '../main-nav/main-nav.component';
 import { BewonerComponent } from './bewoner/bewoner.component';
+import { AlleBewonersComponent } from './bewoner/alle-bewoners/alle-bewoners.component';
 
 
 
 
 @NgModule({
-  declarations: [MainNavComponent, BewonerComponent],
+  declarations: [MainNavComponent, BewonerComponent, AlleBewonersComponent],
   imports: [
     CommonModule, MaterialModule
   ],
