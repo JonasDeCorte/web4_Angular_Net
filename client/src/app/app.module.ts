@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { MainpageModule } from './mainpage/mainpage.module';
 import { MaterialModule } from './material/material.module';
+import {ConfirmationDialogComponent} from './mainpage/bewoner/confirmation-dialog/confirmation-dialog.component'
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { MaterialModule } from './material/material.module';
     MaterialModule,
    
   ],
+  
   providers: [],
   bootstrap: [AppComponent]
 })
