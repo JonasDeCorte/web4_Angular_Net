@@ -1,0 +1,47 @@
+<mat-sidenav-container class="example-container"  class="example-container" (backdropClick)="close('backdrop')">
+  <mat-sidenav #sidenav (keydown.escape)="close('escape')" disableClose>
+    <mat-nav-list>
+      <div class="info align-center">
+        <div class="image"><img src="./images/administrator.png"/></div>
+        <div class="content nameContent">
+          <p class='name' style="margin-top: 16px;">Jonas De Corte</p>
+          <p class='user-type'>Admin</p>
+        </div>
+      </div>
+      <a mat-list-item > Dashboard </a>
+      <a mat-list-item > Agenda </a>
+      <a mat-list-item > Bewoners </a>
+      <a mat-list-item > Personeel </a>
+      <p><button mat-button (click)="close('toggle button')"></button></p>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p><button mat-button (click)="sidenav.open()">Open</button></p>
+    <div class="grid-container">
+      <h1 class="mat-h1">Dashboard</h1>
+      <mat-grid-list cols="2" rowHeight="350px">
+        <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
+          <mat-card class="dashboard-card">
+            <mat-card-header>
+              <mat-card-title>
+                {{card.title}}
+                <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                  <button mat-menu-item>Expand</button>
+                  <button mat-menu-item>Remove</button>
+                </mat-menu>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="dashboard-card-content">
+              <div>Card Content Here</div>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
