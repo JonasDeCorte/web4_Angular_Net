@@ -1,3 +1,4 @@
+<div *ngIf="(personeel$ | async) as personeel; else loading">
 <header>
     
    
@@ -24,7 +25,7 @@
     >
       <div
         class="personeel"
-        *ngFor="let localPersoneel of (personeel | personeelFilter : filterPersoneelName)"
+        *ngFor="let localPersoneel of personeel | personeelFilter : filterPersoneelName"
         fxFlex="0 0 calc(25%-0.5%)"
         fxFlex.xs="100%"
       >
@@ -32,3 +33,5 @@
       </div>
     </div>
   </div>
+</div>
+  <ng-template #loading><mat-spinner></mat-spinner></ng-template>

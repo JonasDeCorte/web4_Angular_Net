@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { PersoneelDataService } from '../personeel-data.service';
@@ -12,8 +13,10 @@ import { Personeel } from '../personeel/personeel.model';
   styleUrls: ['./personeel-lijst.component.css']
 })
 export class PersoneelLijstComponent implements OnInit {
+  private _personeel: Personeel[];
   public filterPersoneelName: string;
   public filterPersoneel$ = new Subject<string>();
+  private _fetchPersoneel$ = this._personeelDataService.personeel$;
   constructor(private _personeelDataService: PersoneelDataService) {
     this.filterPersoneel$.pipe(
       distinctUntilChanged(),
@@ -22,10 +25,12 @@ export class PersoneelLijstComponent implements OnInit {
       filter(val => !val.startsWith('s'))
     ).subscribe(
       val => this.filterPersoneelName = val);
+    
+     
     }
    
- get personeel() {
-   return this._personeelDataService.personeel;
+ get personeel$(): Observable<Personeel[]> {
+   return this._fetchPersoneel$;
  }
  
   ngOnInit(): void {
