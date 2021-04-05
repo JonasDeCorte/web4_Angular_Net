@@ -1,7 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
+import { throwError } from 'rxjs';
 import { Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { PersoneelDataService } from '../personeel-data.service';
 
 
@@ -16,7 +18,8 @@ export class PersoneelLijstComponent implements OnInit {
   private _personeel: Personeel[];
   public filterPersoneelName: string;
   public filterPersoneel$ = new Subject<string>();
-  private _fetchPersoneel$ = this._personeelDataService.personeel$;
+  private _fetchPersoneel$: Observable<Personeel[]> 
+  public errorMessage: string = '';
   constructor(private _personeelDataService: PersoneelDataService) {
     this.filterPersoneel$.pipe(
       distinctUntilChanged(),
@@ -26,7 +29,12 @@ export class PersoneelLijstComponent implements OnInit {
     ).subscribe(
       val => this.filterPersoneelName = val);
     
-     
+     this._fetchPersoneel$ = this._personeelDataService.personeel$.pipe
+     (catchError((err) =>  {
+       this.errorMessage = err.message; 
+       return EMPTY;
+      })
+     );
     }
    
  get personeel$(): Observable<Personeel[]> {
@@ -42,4 +50,5 @@ export class PersoneelLijstComponent implements OnInit {
   applyFilter(filter: string) {
     this.filterPersoneelName = filter;
 }
+
 }
