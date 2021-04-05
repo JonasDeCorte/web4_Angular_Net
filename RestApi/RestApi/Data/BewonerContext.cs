@@ -13,19 +13,25 @@ namespace RestApi.Data
         {
         }
         public DbSet<Bewoner> Bewoners { get; set; }
+        public DbSet<Personeel> personeels { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<Bewoner>();
-                
+            builder.Entity<Bewoner>();             
             builder.Entity<Bewoner>().Property(r => r.Name).IsRequired().HasMaxLength(50);
-
+            builder.Entity<Personeel>();
+            builder.Entity<Personeel>().Property(r => r.Name).IsRequired().HasMaxLength(50);
 
             //Another way to seed the database
             builder.Entity<Bewoner>().HasData(
-                 new Bewoner { Id = 1, Name = "Heidi Verschaeve", GeboorteDatum = DateTime.Now, EetOpKamer = true, WordtGehaald = false },
-                 new Bewoner { Id = 2, Name = "Nico De Corte", GeboorteDatum = DateTime.Now, EetOpKamer = false, WordtGehaald = true });
-               
+                 new Bewoner { Id = 1, Name = "1lorem ipsum", GeboorteDatum = DateTime.Now, EetOpKamer = true, WordtGehaald = false },
+                 new Bewoner { Id = 2, Name = "2ipsumlorem ipsum", GeboorteDatum = DateTime.Now, EetOpKamer = false, WordtGehaald = true });
+            builder.Entity<Personeel>().HasData(
+               new Personeel { Id = 1, Name = "1lorem ipsumlorem ipsum", GeboorteDatum = DateTime.Now, DatumInDienst = DateTime.Now, Functie = "Keuken" },
+               new Personeel { Id = 2, Name = "2ipsumlorem ipsum", GeboorteDatum = DateTime.Now, DatumInDienst = DateTime.Now, Functie = "Zaal" },
+                new Personeel { Id = 3, Name = "3orem ipsumlorem ipsum", GeboorteDatum = DateTime.Now, DatumInDienst = DateTime.Now, Functie = "Keuken" },
+               new Personeel { Id = 4, Name = "4 ipsumlorem ipsum", GeboorteDatum = DateTime.Now, DatumInDienst = DateTime.Now, Functie = "Zaal" });
+
 
 
         }

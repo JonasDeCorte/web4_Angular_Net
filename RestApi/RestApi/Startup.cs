@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using RestApi.Models;
 
 namespace RestApi
 {
@@ -35,6 +36,7 @@ namespace RestApi
         options.UseSqlServer(Configuration.GetConnectionString("BewonerContext")));
             services.AddScoped<BewonerDataInitializer>();
             services.AddScoped<IBewonerRepository, BewonerRepository>();
+            services.AddScoped<IPersoneelRepository, PersoneelRepository>();
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";
