@@ -26,6 +26,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [],
   imports: [
+    ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
     CommonModule,
@@ -50,7 +51,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   MatIconModule,
   MatButtonModule,
   MatIconModule,
-  ReactiveFormsModule,
   MatIconModule,
   MatSelectModule,
   MatCardModule,

@@ -1,9 +1,43 @@
 <mat-card>
+  <form [formGroup]="personeelFG" (ngSubmit)='onSubmit()'>
     <mat-form-field>
-      <input matInput placeholder="name" type="text" 
-          #newPersoneelname />
+      <input 
+      matInput
+       placeholder="name" 
+      type="text" 
+      aria-label="name"
+      #newPersoneelname
+      required
+      formControlName="name"/>
+      <mat-error
+      *ngIf="personeelFG.get('name')['errors'] && 
+        personeelFG.get('name').touched"
+    >
+      {{ getErrorMessage(personeelFG.get('name')['errors']) }}
+    </mat-error>
     </mat-form-field>
-    <button (click)="addPersoneel(newPersoneelname)" mat-raised-button>
+    <div formArrayName="adres">
+      <div>
+        <mat-form-field>
+          <input matInput type="text"  placeholder="Straat" aria-label="Straat" formControlName="straat">   
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" aria-label="PostCode"
+            placeholder="PostCode" formControlName="postcode"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="HuisNummer" aria-label="huisnummer"
+            type="text" formControlName="huisnummer"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Land" aria-label="land"
+            type="text" formControlName="land"/>
+        </mat-form-field>
+      </div>
+    </div>
+    <button type='submit' mat-raised-button [disabled]='!personeelFG.valid'>
       add Personeel
     </button>
+  </form>
   </mat-card>   
+  {{personeelFG.value | json}}

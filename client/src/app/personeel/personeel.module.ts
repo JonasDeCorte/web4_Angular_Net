@@ -7,12 +7,13 @@ import { PersoneelLijstComponent } from './personeel-lijst/personeel-lijst.compo
 import { AddPersoneelComponent } from './add-personeel/add-personeel.component';
 import { PersoneelFilterPipe } from './personeel-filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [PersoneelComponent, PersoneelLijstComponent, AddPersoneelComponent, PersoneelFilterPipe],
   imports: [
-    CommonModule, MaterialModule, HttpClientModule 
+    CommonModule, MaterialModule, HttpClientModule, ReactiveFormsModule
   ],
   exports: [PersoneelLijstComponent]
 })

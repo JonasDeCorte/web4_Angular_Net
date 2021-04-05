@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Personeel } from '../personeel/personeel.model';
 
 @Component({
@@ -8,13 +9,35 @@ import { Personeel } from '../personeel/personeel.model';
 })
 export class AddPersoneelComponent implements OnInit {
   @Output() public newPersoneel = new EventEmitter<Personeel>();
-  constructor() { }
+  personeelFG : FormGroup
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.personeelFG = this.fb.group({
+      name: ['',[Validators.required, Validators.minLength(3)]],
+      adres: this.fb.group({
+        postcode: [''],
+        straat: [''],
+        huisnummer: [''],
+        land: ['']
+      }),
+    });
+  
   }
-  addPersoneel(personeelName: HTMLInputElement): boolean {
-    const personeel = new Personeel(10,personeelName.value,personeelName.value, new Date(), new Date());
+ 
+  onSubmit(){
+
+    const personeel = new Personeel(10,this.personeelFG.value.name, this.personeelFG.value.name, new Date(), new Date(), "test@hogent.be", "0478194517"
+    , this.personeelFG.value.adres.postcode, this.personeelFG.value.adres.straat, this.personeelFG.value.adres.huisnummer, this.personeelFG.value.adres.land);
     this.newPersoneel.emit(personeel);
     return false;
+  }
+  getErrorMessage(errors: any): string {
+    if (errors.required) {
+      return 'is required';
+    } else if (errors.minlength) {
+      return `needs at least ${errors.minlength.requiredLength} 
+        characters (got ${errors.minlength.actualLength})`;
+    }
   }
 }
