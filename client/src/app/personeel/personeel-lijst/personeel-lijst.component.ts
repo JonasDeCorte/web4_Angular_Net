@@ -1,5 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { PersoneelDataService } from '../personeel-data.service';
 import { PERSONEEL } from '../personeel/mock-personeel';
 
 import { Personeel } from '../personeel/personeel.model';
@@ -10,16 +11,16 @@ import { Personeel } from '../personeel/personeel.model';
   styleUrls: ['./personeel-lijst.component.css']
 })
 export class PersoneelLijstComponent implements OnInit {
- private _personeel = PERSONEEL;
-  constructor() { }
+ 
+  constructor(private _personeelDataService: PersoneelDataService) { }
  get personeel() {
-   return this._personeel;
+   return this._personeelDataService.personeel;
  }
  
   ngOnInit(): void {
     
   }
   addNewPersoneel(personeel: Personeel) {
-    this._personeel.push(personeel);
+    this._personeelDataService.addNewPersoneel(personeel);
   }
 }
