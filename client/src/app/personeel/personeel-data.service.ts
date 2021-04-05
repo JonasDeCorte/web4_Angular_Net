@@ -13,6 +13,7 @@ export class PersoneelDataService {
   }
 
   addNewPersoneel(personeel: Personeel) {
-    this._personeel.push(personeel);
+    this._personeel = [...this._personeel, personeel];
+    //this._personeel.push(personeel);
   }
 }
