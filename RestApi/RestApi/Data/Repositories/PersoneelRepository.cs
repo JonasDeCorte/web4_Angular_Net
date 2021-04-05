@@ -10,41 +10,41 @@ namespace RestApi.Data.Repositories
     public class PersoneelRepository : IPersoneelRepository
     {
         private readonly BewonerContext _context;
-        private readonly DbSet<Personeel> _personeels;
+        private readonly DbSet<Personeel> _personeel;
 
         public PersoneelRepository(BewonerContext dbContext)
         {
             _context = dbContext;
-            _personeels = dbContext.personeels;
+            _personeel = dbContext.Personeels;
         }
 
 
 
         public void Add(Personeel Personeel)
         {
-            _personeels.Add(Personeel);
+            _personeel.Add(Personeel);
         }
 
         public void Delete(Personeel Personeel)
         {
-            _personeels.Remove(Personeel);
+            _personeel.Remove(Personeel);
         }
 
         public IEnumerable<Personeel> GetAll()
         {
-            return _personeels.ToList();
+            return _personeel.ToList();
         }
 
         public Personeel GetBy(int id)
         {
-            return _personeels.SingleOrDefault(r => r.Id == id);
+            return _personeel.SingleOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<Personeel> GetBy(string name = null)
         {
-            var Personeels = _personeels.AsQueryable();
+            var Personeels = _personeel.AsQueryable();
             if (!string.IsNullOrEmpty(name))
-                Personeels = _personeels.Where(r => r.Name.IndexOf(name) >= 0);
+                Personeels = _personeel.Where(r => r.Name.IndexOf(name) >= 0);
             /* to do 
             if (EetOpKamer.Equals(true))
                 Personeels = _Personeels.Where(r => r.EetOpKamer == EetOpKamer);
@@ -54,7 +54,7 @@ namespace RestApi.Data.Repositories
                 Personeels = _Personeels.Where(r => r.WordtGehaald == WordtGehaald);
             else
                 Personeels = _Personeels.Where(r => r.WordtGehaald != WordtGehaald);*/
-            return _personeels.OrderBy(r => r.Name).ToList();
+            return _personeel.OrderBy(r => r.Name).ToList();
         }
 
         public void SaveChanges()
@@ -64,7 +64,7 @@ namespace RestApi.Data.Repositories
 
         public bool TryGetPersoneel(int id, out Personeel Personeel)
         {
-            Personeel = _context.personeels.FirstOrDefault(t => t.Id == id);
+            Personeel = _context.Personeels.FirstOrDefault(t => t.Id == id);
             return Personeel != null;
         }
 
