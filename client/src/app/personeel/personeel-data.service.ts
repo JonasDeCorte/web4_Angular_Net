@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
+import { BehaviorSubject } from 'rxjs';
 import { Subject, throwError } from 'rxjs';
 import {  Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -10,7 +11,7 @@ import { Personeel } from './personeel/personeel.model';
   providedIn: 'root'
 })
 export class PersoneelDataService {
-  private _personeel$ = new Subject<Personeel[]>();
+  private _personeel$ = new BehaviorSubject<Personeel[]>([]);
   private _personeel: Personeel[];
   constructor(private http: HttpClient) {
     this.personeel$.subscribe((pers: Personeel[]) => {
