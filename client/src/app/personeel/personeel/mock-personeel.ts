@@ -10,7 +10,7 @@ const JsonMedewerkers= [
   },
   {
     id: 2,
-    name: 'Heidi',
+    name: 'lorum',
     functie: 'Zaal',
     geboorteDatum: new Date("1970-05-03"),
     datumInDienst : new Date("1990-01-16"),
@@ -21,6 +21,6 @@ const JsonMedewerkers= [
     functie: 'Zaal',
     geboorteDatum: new Date("1979-12-03"),
     datumInDienst : new Date("1998-01-16"),
-  }
+  },
 ];
 export const PERSONEEL: Personeel[] = JsonMedewerkers.map(Personeel.fromJSON);

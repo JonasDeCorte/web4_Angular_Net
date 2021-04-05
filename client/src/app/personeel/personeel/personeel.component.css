@@ -4,7 +4,7 @@
   }
   
   .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-image: url('https://p.kindpng.com/picc/s/78-785904_block-chamber-of-commerce-avatar-white-avatar-icon.png');
     background-size: cover;
   }
   mat-toolbar {
@@ -17,4 +17,10 @@
 
 .content > mat-card {
     margin-bottom: 16px;
+}
+.divlayout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
 }

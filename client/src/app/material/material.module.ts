@@ -19,13 +19,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatSelectModule } from '@angular/material/select';
 import {MatMenuModule} from '@angular/material/menu';
 
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 
 @NgModule({
   declarations: [],
   imports: [
+    MatFormFieldModule,
     CommonModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
@@ -51,9 +53,11 @@ import {MatMenuModule} from '@angular/material/menu';
   ReactiveFormsModule,
   MatIconModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
+  MatInputModule
   ],
   exports: [
+    MatFormFieldModule,
     CommonModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
@@ -79,7 +83,8 @@ import {MatMenuModule} from '@angular/material/menu';
   ReactiveFormsModule,
   MatIconModule,
   MatSelectModule,
-  MatCardModule
+  MatCardModule,
+  MatInputModule
   ]
 })
 export class MaterialModule { }

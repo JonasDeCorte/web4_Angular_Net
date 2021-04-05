@@ -1,4 +1,13 @@
+<header>
+    
+   
+   <mat-toolbar color="primary">
+    <span>Lijst van Personeel</span>
+  
+  </mat-toolbar>
+</header>
 <div fxLayout="column" fxLayoutGap="2%">
+ <app-add-personeel (newPersoneel)="addNewPersoneel($event)"></app-add-personeel>
     <div
       fxLayout="row wrap"
       fxLayout.xs="column"

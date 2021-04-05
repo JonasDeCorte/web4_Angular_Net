@@ -1,5 +1,8 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { PERSONEEL } from '../mock-personeel';
+import { PERSONEEL } from '../personeel/mock-personeel';
+
+import { Personeel } from '../personeel/personeel.model';
 
 @Component({
   selector: 'app-personeel-lijst',
@@ -7,13 +10,16 @@ import { PERSONEEL } from '../mock-personeel';
   styleUrls: ['./personeel-lijst.component.css']
 })
 export class PersoneelLijstComponent implements OnInit {
-  private _personeel = PERSONEEL;
+ private _personeel = PERSONEEL;
   constructor() { }
-  get personeel() {
-    return this._personeel;
-  }
+ get personeel() {
+   return this._personeel;
+ }
+ 
   ngOnInit(): void {
-    console.log(this.personeel);
+    
   }
-
+  addNewPersoneel(personeel: Personeel) {
+    this._personeel.push(personeel);
+  }
 }
