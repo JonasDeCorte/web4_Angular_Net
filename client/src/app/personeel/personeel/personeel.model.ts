@@ -1,5 +1,3 @@
-import { ThrowStmt } from "@angular/compiler";
-
 interface PersoneelJson {
     id: number;
     name: string;
@@ -25,6 +23,16 @@ export class Personeel {
         );
         return pers;
       }
+      toJSON(): PersoneelJson{
+        return <PersoneelJson>{
+         
+          name: this.name,
+          functie: this.functie,
+          geboorteDatum: this.geboorteDatum,
+          datumInDienst: this.datumInDienst
+        };
+      }
+      
       get id() : number{
           return this._id;
       }

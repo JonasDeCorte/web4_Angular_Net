@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
-import { throwError } from 'rxjs';
-import { never, Observable } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
+import {  Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Personeel } from './personeel/personeel.model';
 
@@ -10,19 +10,33 @@ import { Personeel } from './personeel/personeel.model';
   providedIn: 'root'
 })
 export class PersoneelDataService {
-  constructor(private http: HttpClient) {}
+  private _personeel$ = new Subject<Personeel[]>();
+  private _personeel: Personeel[];
+  constructor(private http: HttpClient) {
+    this.personeel$.subscribe((pers: Personeel[]) => {
+      this._personeel = pers;
+      this._personeel$.next(this._personeel);
+    })
+  }
     
-  
+  get allPersoneel$(): Observable<Personeel[]> {
+    return this._personeel$;
+  }
   get personeel$(): Observable<Personeel[]> {
     return this.http
     .get(`${environment.apiUrl}/Personeel/`)
     .pipe(catchError(this.handleError),
       map((list: any[]): Personeel[] => list.map(Personeel.fromJSON)));
       }
-  addNewPersoneel(personeel: Personeel) {
-    //this._personeel = [...this._personeel, personeel];
-    //this._personeel.push(personeel);
-    throw 'not imp yet';
+
+  addNewPersoneel(personeel: Personeel)  {
+   return this.http.post(`${environment.apiUrl}/Personeel/`, personeel.toJSON())
+   .pipe(catchError(this.handleError),map(Personeel.fromJSON)).subscribe((pers : Personeel) => {
+     this._personeel = [...this._personeel,pers];
+     this._personeel$.next(this._personeel);
+   });
+   
+    
   }
 
 handleError(err: any): Observable<never> {

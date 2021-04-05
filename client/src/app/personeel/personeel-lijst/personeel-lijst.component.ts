@@ -15,11 +15,11 @@ import { Personeel } from '../personeel/personeel.model';
   styleUrls: ['./personeel-lijst.component.css']
 })
 export class PersoneelLijstComponent implements OnInit {
-  private _personeel: Personeel[];
   public filterPersoneelName: string;
   public filterPersoneel$ = new Subject<string>();
   private _fetchPersoneel$: Observable<Personeel[]> 
   public errorMessage: string = '';
+  
   constructor(private _personeelDataService: PersoneelDataService) {
     this.filterPersoneel$.pipe(
       distinctUntilChanged(),
@@ -29,12 +29,7 @@ export class PersoneelLijstComponent implements OnInit {
     ).subscribe(
       val => this.filterPersoneelName = val);
     
-     this._fetchPersoneel$ = this._personeelDataService.personeel$.pipe
-     (catchError((err) =>  {
-       this.errorMessage = err.message; 
-       return EMPTY;
-      })
-     );
+    
     }
    
  get personeel$(): Observable<Personeel[]> {
@@ -42,10 +37,19 @@ export class PersoneelLijstComponent implements OnInit {
  }
  
   ngOnInit(): void {
-    
+    this._fetchPersoneel$ = this._personeelDataService.allPersoneel$.pipe
+    (catchError((err) =>  {
+      this.errorMessage = err.message; 
+      return EMPTY;
+     })
+    );
   }
   addNewPersoneel(personeel: Personeel) {
-    this._personeelDataService.addNewPersoneel(personeel);
+    console.log(personeel);
+    this._personeelDataService
+      .addNewPersoneel(personeel)
+     
+    
   }
   applyFilter(filter: string) {
     this.filterPersoneelName = filter;
