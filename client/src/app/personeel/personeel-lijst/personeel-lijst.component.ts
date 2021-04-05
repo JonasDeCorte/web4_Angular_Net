@@ -1,7 +1,8 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { PersoneelDataService } from '../personeel-data.service';
-import { PERSONEEL } from '../personeel/mock-personeel';
+
 
 import { Personeel } from '../personeel/personeel.model';
 
@@ -11,8 +12,18 @@ import { Personeel } from '../personeel/personeel.model';
   styleUrls: ['./personeel-lijst.component.css']
 })
 export class PersoneelLijstComponent implements OnInit {
- 
-  constructor(private _personeelDataService: PersoneelDataService) { }
+  public filterPersoneelName: string;
+  public filterPersoneel$ = new Subject<string>();
+  constructor(private _personeelDataService: PersoneelDataService) {
+    this.filterPersoneel$.pipe(
+      distinctUntilChanged(),
+      debounceTime(400),
+      map(val => val.toLowerCase()),
+      filter(val => !val.startsWith('s'))
+    ).subscribe(
+      val => this.filterPersoneelName = val);
+    }
+   
  get personeel() {
    return this._personeelDataService.personeel;
  }
@@ -23,4 +34,7 @@ export class PersoneelLijstComponent implements OnInit {
   addNewPersoneel(personeel: Personeel) {
     this._personeelDataService.addNewPersoneel(personeel);
   }
+  applyFilter(filter: string) {
+    this.filterPersoneelName = filter;
+}
 }

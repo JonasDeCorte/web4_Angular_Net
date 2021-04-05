@@ -7,6 +7,14 @@
   </mat-toolbar>
 </header>
 <div fxLayout="column" fxLayoutGap="2%">
+  <mat-form-field>
+  <input
+        matInput
+        (keyup)="filterPersoneel$.next($event.target.value)"
+        placeholder="filter"
+        type="text"
+      />
+    </mat-form-field>
  <app-add-personeel (newPersoneel)="addNewPersoneel($event)"></app-add-personeel>
     <div
       fxLayout="row wrap"
@@ -16,7 +24,7 @@
     >
       <div
         class="personeel"
-        *ngFor="let localPersoneel of personeel"
+        *ngFor="let localPersoneel of (personeel | personeelFilter : filterPersoneelName)"
         fxFlex="0 0 calc(25%-0.5%)"
         fxFlex.xs="100%"
       >
