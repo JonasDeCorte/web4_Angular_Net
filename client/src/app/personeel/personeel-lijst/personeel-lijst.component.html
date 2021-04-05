@@ -1,0 +1,17 @@
+<div fxLayout="column" fxLayoutGap="2%">
+    <div
+      fxLayout="row wrap"
+      fxLayout.xs="column"
+      fxLayoutGap="0.5%"
+      fxLayoutAlign="start"
+    >
+      <div
+        class="personeel"
+        *ngFor="let localPersoneel of personeel"
+        fxFlex="0 0 calc(25%-0.5%)"
+        fxFlex.xs="100%"
+      >
+        <app-personeel [personeel]="localPersoneel"></app-personeel>
+      </div>
+    </div>
+  </div>

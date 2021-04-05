@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Personeel } from './personeel.model';
 
 @Component({
   selector: 'app-personeel',
@@ -6,12 +7,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./personeel.component.css']
 })
 export class PersoneelComponent implements OnInit {
+  @Input() public personeel: Personeel;
+
   title = 'Personeels register';
   gridColumns = 3;
   toggleGridColumns() {
     this.gridColumns = this.gridColumns === 3 ? 4 : 3;
   }
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }

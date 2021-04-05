@@ -13,7 +13,7 @@
             <div >Add New</div>
         </div>
         <mat-toolbar color="primary">
-            <span>Lijst van bewoners</span>
+            <span>Lijst van Personeel</span>
             <button mat-button (click)="toggleGridColumns()" fxHide.lt-md>
               <span *ngIf="gridColumns === 4">Three Columns</span>
               <span *ngIf="gridColumns === 3">Four Columns</span>
@@ -22,22 +22,23 @@
     </header>
     <div class="content">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-            <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let num of [1,2,3,4,5,6,7]">          
+            <div [fxFlex]="(100/gridColumns) + '%'" fxFlex.xs="100%" fxFlex.sm="33%">          
                 <mat-card class="example-card" class="mat-elevation-z4">
                     <mat-card-header>
                       <div mat-card-avatar class="example-header-image"></div>
-                      <mat-card-title>Shiba Inu</mat-card-title>
-                      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+                      <mat-card-title>{{personeel.name}}</mat-card-title>
+                      <mat-card-subtitle>{{personeel.functie}}</mat-card-subtitle>
                     </mat-card-header>
                     <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
                     <mat-card-content>
                       <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas placerat lorem feugiat elementum pretium. Praesent tempor dictum leo, gravida imperdiet metus. Aenean dolor velit, luctus sit amet viverra sed, tincidunt vel erat. Quisque malesuada euismod ultrices. Etiam nulla lacus, elementum ut viverra id, consequat a ex.
+                        begonnen op {{personeel.datumInDienst  }}
+                        geboren op {{personeel.geboorteDatum  }}
                       </p>
                     </mat-card-content>
                     <mat-card-actions>
-                      <button mat-button>LIKE</button>
-                      <button mat-button>SHARE</button>
+                      <button mat-button>Bewerk</button>
+                      <button mat-button>test</button>
                     </mat-card-actions>
                   </mat-card>
             </div>
