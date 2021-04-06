@@ -8,6 +8,7 @@ import { AddPersoneelComponent } from './add-personeel/add-personeel.component';
 import { PersoneelFilterPipe } from './personeel-filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PersoneelDataService } from './personeel-data.service';
 
 
 @NgModule({
@@ -15,6 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule, MaterialModule, HttpClientModule, ReactiveFormsModule
   ],
-  exports: [PersoneelLijstComponent]
+  exports: [PersoneelLijstComponent],
+  entryComponents: [AddPersoneelComponent],
+  providers: [PersoneelDataService]
 })
 export class PersoneelModule { }

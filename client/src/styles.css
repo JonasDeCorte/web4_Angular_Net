@@ -5,3 +5,11 @@ html,body{
 body{
     margin:0;
 }
+snack-bar-container.success{
+background-color: greenyellow;
+color: #ffff;
+}
+snack-bar-container.notification simple-snack-bar{
+    font-size: 10px i !important;
+    font-weight: bold;
+}

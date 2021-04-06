@@ -14,6 +14,10 @@
         type="text"
       />
     </mat-form-field>
+    <button mat-raised-button (click)="onCreate()">
+      <mat-icon>add</mat-icon>
+      Voeg werknemer toe
+    </button>
     <app-add-personeel
       (newPersoneel)="addNewPersoneel($event)"
     ></app-add-personeel>

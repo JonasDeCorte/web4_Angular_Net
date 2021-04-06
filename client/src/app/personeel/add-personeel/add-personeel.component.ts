@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Personeel } from '../personeel/personeel.model';
+import {NotificationServiceService} from '../../notification-service.service';
 
 @Component({
   selector: 'app-add-personeel',
@@ -10,11 +11,16 @@ import { Personeel } from '../personeel/personeel.model';
 export class AddPersoneelComponent implements OnInit {
   @Output() public newPersoneel = new EventEmitter<Personeel>();
   personeelFG : FormGroup
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,     private notificationService: NotificationServiceService) { }
 
   ngOnInit(): void {
     this.personeelFG = this.fb.group({
       name: ['',[Validators.required, Validators.minLength(3)]],
+      functie: ['', [Validators.required]],
+      geboorteDatum: ['', [Validators.required]],
+      datumInDienst: ['', [Validators.required]],
+      email: ['',[Validators.required, Validators.email]],
+      telefoonNummer: ['', [Validators.required]],
       adres: this.fb.group({
         postcode: [''],
         straat: [''],
@@ -24,12 +30,13 @@ export class AddPersoneelComponent implements OnInit {
     });
   
   }
- 
-  onSubmit(){
 
-    const personeel = new Personeel(10,this.personeelFG.value.name, this.personeelFG.value.name, new Date(), new Date(), "test@hogent.be", "0478194517"
+  onSubmit(){
+    const personeel = new Personeel(10,this.personeelFG.value.name, this.personeelFG.value.name,
+       this.personeelFG.value.geboorteDatum, this.personeelFG.value.datumInDienst, this.personeelFG.value.email, this.personeelFG.value.telefoonNummer
     , this.personeelFG.value.adres.postcode, this.personeelFG.value.adres.straat, this.personeelFG.value.adres.huisnummer, this.personeelFG.value.adres.land);
     this.newPersoneel.emit(personeel);
+    this.notificationService.success(':: Submitted succesfully'); 
     return false;
   }
   getErrorMessage(errors: any): string {
@@ -41,3 +48,4 @@ export class AddPersoneelComponent implements OnInit {
     }
   }
 }
+

@@ -21,11 +21,15 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
   declarations: [],
   imports: [
+    MatDialogModule,
     ReactiveFormsModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
@@ -54,9 +58,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   MatIconModule,
   MatSelectModule,
   MatCardModule,
-  MatInputModule
+  MatInputModule,
+  MatDatepickerModule,
+  MatSnackBarModule
   ],
   exports: [
+    MatDialogModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
     CommonModule,
@@ -85,7 +92,9 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   MatIconModule,
   MatSelectModule,
   MatCardModule,
-  MatInputModule
+  MatInputModule,
+  MatDatepickerModule,
+  MatSnackBarModule
   ]
 })
 export class MaterialModule { }
