@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Personeel } from '../personeel/personeel.model';
 import {NotificationServiceService} from '../../notification-service.service';
+import { PersoneelDataService } from '../personeel-data.service';
 
 @Component({
   selector: 'app-add-personeel',
@@ -11,7 +12,7 @@ import {NotificationServiceService} from '../../notification-service.service';
 export class AddPersoneelComponent implements OnInit {
   @Output() public newPersoneel = new EventEmitter<Personeel>();
   personeelFG : FormGroup
-  constructor(private fb: FormBuilder,     private notificationService: NotificationServiceService) { }
+  constructor(private _personeelDataService: PersoneelDataService, private fb: FormBuilder,     private notificationService: NotificationServiceService) { }
 
   ngOnInit(): void {
     this.personeelFG = this.fb.group({
@@ -36,9 +37,15 @@ export class AddPersoneelComponent implements OnInit {
        this.personeelFG.value.geboorteDatum, this.personeelFG.value.datumInDienst, this.personeelFG.value.email, this.personeelFG.value.telefoonNummer
     , this.personeelFG.value.adres.postcode, this.personeelFG.value.adres.straat, this.personeelFG.value.adres.huisnummer, this.personeelFG.value.adres.land);
     this.newPersoneel.emit(personeel);
+    this._personeelDataService.addNewPersoneel(personeel);
     this.notificationService.success(':: Submitted succesfully'); 
     return false;
   }
+  addNewPersoneel(personeel: Personeel) {
+    console.log(personeel);
+    this._personeelDataService
+    .addNewPersoneel(personeel)
+}
   getErrorMessage(errors: any): string {
     if (errors.required) {
       return 'is required';

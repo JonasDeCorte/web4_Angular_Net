@@ -1,8 +1,6 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { EMPTY, Observable, of } from 'rxjs';
-import { throwError } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { AddPersoneelComponent } from '../add-personeel/add-personeel.component';
@@ -46,13 +44,13 @@ export class PersoneelLijstComponent implements OnInit {
      })
     );
   }
+  /*
   addNewPersoneel(personeel: Personeel) {
-    console.log(personeel);
-    this._personeelDataService
+      console.log(personeel);
+      this._personeelDataService
       .addNewPersoneel(personeel)
-     
-    
   }
+  */
   applyFilter(filter: string) {
     this.filterPersoneelName = filter;
 }
