@@ -10,9 +10,13 @@ import { PersoneelResolver } from './personeel/PersoneelResolver';
 
 
 const appRoutes: Routes = [
-  { path: 'personeel/list', component: PersoneelLijstComponent },
-  { path: 'personeel/add', component: AddPersoneelComponent },
-  { path: 'personeel/edit/:id', component: PersoneelEditComponent, resolve: {personeel: PersoneelResolver} },
+  {
+    path: 'personeel',
+    loadChildren: () => import('./personeel/personeel.module').then(mod => mod.PersoneelModule)
+  },
+  // { path: 'personeel/list', component: PersoneelLijstComponent },
+  // { path: 'personeel/add', component: AddPersoneelComponent },
+  // { path: 'personeel/edit/:id', component: PersoneelEditComponent, resolve: {personeel: PersoneelResolver} },
   { path: '', redirectTo: 'personeel/list', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 

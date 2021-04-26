@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -12,7 +11,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
-import { BrowserModule } from '@angular/platform-browser';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -34,7 +32,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     CommonModule,
-    BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
     LayoutModule,
@@ -45,8 +42,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatListModule,
     MatGridListModule,
     MatTableModule,
-    BrowserModule,
-  BrowserAnimationsModule,
   CdkTableModule,
   MatTableModule,
   MatPaginatorModule,
@@ -67,7 +62,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatProgressSpinnerModule,
     MatFormFieldModule,
     CommonModule,
-    BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
     LayoutModule,
@@ -78,8 +72,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatListModule,
     MatGridListModule,
     MatTableModule,
-    BrowserModule,
-  BrowserAnimationsModule,
   CdkTableModule,
   MatTableModule,
   MatPaginatorModule,

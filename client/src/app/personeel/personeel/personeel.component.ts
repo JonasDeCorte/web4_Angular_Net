@@ -10,10 +10,7 @@ export class PersoneelComponent implements OnInit {
   @Input() public personeel: Personeel;
 
   title = 'Personeels register';
-  gridColumns = 3;
-  toggleGridColumns() {
-    this.gridColumns = this.gridColumns === 3 ? 4 : 3;
-  }
+
   constructor() {}
 
   ngOnInit(): void {
