@@ -1,0 +1,28 @@
+<!-- placeholder for test-->
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <div class="divlayout">
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-icon>badge</mat-icon>
+          {{ personeel.name }}
+        </div>
+      </mat-card-title>
+      <mat-card-subtitle>{{ personeel.functie }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Begonnen op {{ personeel.datumInDienst | date: 'fullDate'}} <br> Geboren op  {{ personeel.geboorteDatum | date: 'fullDate'}}
+      </p>
+      <img
+        mat-card-image
+        src="https://assets.dryicons.com/uploads/icon/svg/5505/b390a55c-4d4d-4dd3-a491-ff0fbdff5772.svg"
+        alt="Employee image"
+      />
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Bewerk</button>
+      <button mat-button>Delete</button>
+    </mat-card-actions>
+  </mat-card>
+  

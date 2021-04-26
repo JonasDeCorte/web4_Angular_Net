@@ -13,6 +13,7 @@ import { Personeel } from './personeel/personeel.model';
 })
 export class PersoneelDataService {
   
+  
   private _personeel$ = new BehaviorSubject<Personeel[]>([]);
   private _personeel: Personeel[];
   constructor(private http: HttpClient) {
@@ -58,6 +59,11 @@ export class PersoneelDataService {
       map((list: any[]): Personeel[] => list.map(Personeel.fromJSON))
     );
   }
+  getPersoneel$(id: string): Observable<Personeel> {
+    return this.http
+      .get(`${environment.apiUrl}/Personeel/${id}`)
+      .pipe(catchError(this.handleError), map(Personeel.fromJSON)); // returns just one recipe, as json
+  }
   addNewPersoneel(personeel: Personeel) {
     return this.http
       .post(`${environment.apiUrl}/Personeel/`, personeel.toJSON())
@@ -66,6 +72,15 @@ export class PersoneelDataService {
         this._personeel = [...this._personeel, pers];
         this._personeel$.next(this._personeel);
       });
+ }
+ editPersoneel(personeel: Personeel){
+   return this.http.put(`${environment.apiUrl}/Personeel/${personeel.id}`, personeel.toJSON())
+   .pipe(catchError(this.handleError), map(Personeel.fromJSON))
+   .subscribe((pers: Personeel) => {
+    this._personeel = [...this._personeel, pers];
+    this.personeel$.forEach(x => x)
+    this._personeel$.next(this._personeel);
+  });
  }
   handleError(err: any): Observable<never> {
     let errorMessage: string;

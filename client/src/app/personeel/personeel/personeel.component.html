@@ -11,13 +11,12 @@
   </mat-card-header>
   <mat-card-content>
     <p>
-      begonnen op {{ personeel.datumInDienst }} geboren op
-      {{ personeel.geboorteDatum }}
+      Begonnen op {{ personeel.datumInDienst | date: 'fullDate'}} <br> Geboren op  {{ personeel.geboorteDatum | date: 'fullDate'}}
     </p>
     <img
       mat-card-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-      alt="Photo of a Shiba Inu"
+      src="https://assets.dryicons.com/uploads/icon/svg/5505/b390a55c-4d4d-4dd3-a491-ff0fbdff5772.svg"
+      alt="Employee image"
     />
   </mat-card-content>
   <mat-card-actions>

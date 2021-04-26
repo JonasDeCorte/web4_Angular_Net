@@ -10,7 +10,7 @@ import { PersoneelDataService } from '../personeel-data.service';
   styleUrls: ['./add-personeel.component.css']
 })
 export class AddPersoneelComponent implements OnInit {
-  @Output() public newPersoneel = new EventEmitter<Personeel>();
+ // @Output() public newPersoneel = new EventEmitter<Personeel>();
   personeelFG : FormGroup
   constructor(private _personeelDataService: PersoneelDataService, private fb: FormBuilder,     private notificationService: NotificationServiceService) { }
 
@@ -36,7 +36,7 @@ export class AddPersoneelComponent implements OnInit {
     const personeel = new Personeel(10,this.personeelFG.value.name, this.personeelFG.value.name,
        this.personeelFG.value.geboorteDatum, this.personeelFG.value.datumInDienst, this.personeelFG.value.email, this.personeelFG.value.telefoonNummer
     , this.personeelFG.value.adres.postcode, this.personeelFG.value.adres.straat, this.personeelFG.value.adres.huisnummer, this.personeelFG.value.adres.land);
-    this.newPersoneel.emit(personeel);
+   // this.newPersoneel.emit(personeel);
     this._personeelDataService.addNewPersoneel(personeel);
     this.notificationService.success(':: Submitted succesfully'); 
     return false;

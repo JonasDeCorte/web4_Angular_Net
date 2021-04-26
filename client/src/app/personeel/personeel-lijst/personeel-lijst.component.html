@@ -7,14 +7,14 @@
 <div *ngIf="personeel$ | async as personeel; else loadingOrError">
   <div fxLayout="column" fxLayoutGap="2%">
     <mat-form-field>
-      <input
+      <input 
         matInput
         (keyup)="filterPersoneel$.next($event.target.value)"
         placeholder="filter"
         type="text"
       />
     </mat-form-field>
-    <button mat-raised-button (click)="onCreate()">
+    <button class="width" mat-raised-button color='primary' (click)="onCreate()">
       <mat-icon>add</mat-icon>
       Voeg werknemer toe
     </button>

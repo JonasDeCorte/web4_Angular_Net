@@ -65,31 +65,42 @@ export class Personeel {
       get name(): string{
           return this._name;
       }
+      set name(name : string){this._name = name;}
       get functie():string{
           return this._functie;
       }
+      set functie(functie : string){this._functie = functie;}
       get geboorteDatum(): Date{
           return this._geboorteDatum;
       }
+      set geboorteDatum(geboorteDatum : Date){this._geboorteDatum = geboorteDatum;}
       get datumInDienst(): Date{
           return this._datumIndienst;
       }
+      set datumInDienst(datumInDienst : Date){this._datumIndienst = datumInDienst;}
       get email(): string{
         return this._email;
       }
+      set email(email : string){this._email = email;}
       get telefoonNummer(): string{
         return this._telefoonNummer;
       }
+      set telefoonNummer(telefoonNummer : string){this._telefoonNummer = telefoonNummer;}
       get postcode(): string{
         return this._postcode;
       }
+      set postcode(postcode : string){this._postcode = postcode;}
       get straat(): string{
         return this._straat;
       }
+      set straat(straat : string){this._straat = straat;}
       get huisnummer(): string{
         return this._huisnummer;
       }
+      set huisnummer(huisnummer : string){this._huisnummer = huisnummer;}
       get land(): string{
         return this._land;
       }
+      set land(land : string){this._land = land;}
+      
 }

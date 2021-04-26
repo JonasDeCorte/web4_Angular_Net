@@ -60,7 +60,6 @@ onCreate(){
   dialogConfig.autoFocus = true;
   dialogConfig.width = "60%";
 this.dialog.open(AddPersoneelComponent, dialogConfig);
-
 }
 
 }
