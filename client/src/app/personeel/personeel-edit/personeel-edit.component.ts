@@ -13,10 +13,13 @@ export class PersoneelEditComponent implements OnInit {
   constructor(private route: ActivatedRoute, private personeelDataService: PersoneelDataService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(pa =>
+  /*  this.route.paramMap.subscribe(pa =>
       this.personeelDataService.getPersoneel$(pa.get('id'))
         .subscribe(item => this.personeel = item)
     );
+    */
+    this.route.data.subscribe(item => 
+      this.personeel = item['personeel']);
   }
 
 }
