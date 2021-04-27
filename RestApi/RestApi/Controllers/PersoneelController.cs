@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestApi.Models;
+using RestApi.Models.DTO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,9 +18,11 @@ namespace RestApi.Controllers
     public class PersoneelController : ControllerBase
     {
         public readonly IPersoneelRepository _personeelRepository;
-        public PersoneelController(IPersoneelRepository personeelRepository)
+        private readonly IImageRepository _imageRepository;
+        public PersoneelController(IPersoneelRepository personeelRepository, IImageRepository imageRepository)
         {
             _personeelRepository = personeelRepository;
+            _imageRepository = imageRepository;
         }
         /// <summary>
         /// get all Personeels - get Personeels by naam
@@ -31,13 +36,59 @@ namespace RestApi.Controllers
                 return _personeelRepository.GetAll().OrderBy(r => r.Name);
             return _personeelRepository.GetAll().Where(x => x.Name.Equals(naam)).OrderBy(r => r.Name);
         }
-        /// <summary>
-        /// get Personeel by id 
-        /// </summary>
-        /// <param name="id">de id van een Personeel</param>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        public ActionResult<Personeel> GetPersoneel(int id)
+        [HttpPost("addImage/{id}")]
+        [AllowAnonymous]
+        public ActionResult<String> AddImage(int id)
+        {
+            IFormFile files = Request.Form.Files[0];
+            Personeel persoon = _personeelRepository.GetBy(id);
+
+            if (files != null)
+            {
+                MemoryStream ms = new MemoryStream();
+                files.CopyTo(ms);
+                Image image = new Image
+                {
+
+                    ImageData = ms.ToArray(),
+                    Persoon = persoon,
+                    PersoonId = persoon.Id
+
+                };
+                _imageRepository.AddImage(image);
+                _imageRepository.SaveChanges();
+
+                return Ok();
+            }
+            return BadRequest();
+
+        }
+        [HttpGet("getImage/{id}")]
+        public ActionResult<Image> GetImage(int id)
+        {
+            try
+            {
+                Image image = _imageRepository.GetById(id);
+                ImageDTO imageDTO = new ImageDTO
+                {
+                    ImageData = image.ImageData,
+                    PersoonId = image.PersoonId
+                };
+                return Ok(imageDTO);
+            }
+            catch
+            {
+                return Ok(null);
+            }
+        }
+
+            /// <summary>
+            /// get Personeel by id 
+            /// </summary>
+            /// <param name="id">de id van een Personeel</param>
+            /// <returns></returns>
+            [HttpGet("{id}")]
+            public ActionResult<Personeel> GetPersoneel(int id)
         {
             Personeel Personeel = _personeelRepository.GetBy(id);
             if (Personeel == null) return NotFound();

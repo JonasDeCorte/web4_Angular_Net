@@ -32,11 +32,12 @@ namespace RestApi
         {
 
             services.AddControllers();
-            services.AddDbContext<BewonerContext>(options =>
+            services.AddDbContext<ApplicationDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("BewonerContext")));
             services.AddScoped<BewonerDataInitializer>();
             services.AddScoped<IBewonerRepository, BewonerRepository>();
             services.AddScoped<IPersoneelRepository, PersoneelRepository>();
+            services.AddScoped<IImageRepository, ImageRepository>();
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";

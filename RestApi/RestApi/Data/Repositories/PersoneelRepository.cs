@@ -9,10 +9,10 @@ namespace RestApi.Data.Repositories
 {
     public class PersoneelRepository : IPersoneelRepository
     {
-        private readonly BewonerContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly DbSet<Personeel> _personeel;
 
-        public PersoneelRepository(BewonerContext dbContext)
+        public PersoneelRepository(ApplicationDbContext dbContext)
         {
             _context = dbContext;
             _personeel = dbContext.Personeels;
@@ -32,12 +32,12 @@ namespace RestApi.Data.Repositories
 
         public IEnumerable<Personeel> GetAll()
         {
-            return _personeel.ToList();
+            return _personeel.Include(x => x.Image).Include(x => x.Bewoners).ToList();
         }
 
         public Personeel GetBy(int id)
         {
-            return _personeel.SingleOrDefault(r => r.Id == id);
+            return _personeel.Include(x => x.Image).Include(x => x.Bewoners).SingleOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<Personeel> GetBy(string name = null)
@@ -64,7 +64,7 @@ namespace RestApi.Data.Repositories
 
         public bool TryGetPersoneel(int id, out Personeel Personeel)
         {
-            Personeel = _context.Personeels.FirstOrDefault(t => t.Id == id);
+            Personeel = _context.Personeels.Include(x => x.Image).Include(x => x.Bewoners).FirstOrDefault(t => t.Id == id);
             return Personeel != null;
         }
 

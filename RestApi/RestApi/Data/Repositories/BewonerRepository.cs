@@ -10,10 +10,10 @@ namespace RestApi.Data.Repositories
 {
     public class BewonerRepository : IBewonerRepository
     {
-        private readonly BewonerContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly DbSet<Bewoner> _bewoners;
 
-        public BewonerRepository(BewonerContext dbContext)
+        public BewonerRepository(ApplicationDbContext dbContext)
         {
             _context = dbContext;
             _bewoners = dbContext.Bewoners;
@@ -33,12 +33,12 @@ namespace RestApi.Data.Repositories
 
         public IEnumerable<Bewoner> GetAll()
         {
-            return _bewoners.ToList();
+            return _bewoners.Include(x => x.Personeel).ToList();
         }
 
         public Bewoner GetBy(int id)
         {
-            return _bewoners.SingleOrDefault(r => r.Id == id);
+            return _bewoners.Include(x => x.Personeel).SingleOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<Bewoner> GetBy(string name = null, bool? EetOpKamer = null, bool? WordtGehaald = null)
@@ -64,7 +64,7 @@ namespace RestApi.Data.Repositories
 
         public bool TryGetBewoner(int id, out Bewoner bewoner)
         {
-            bewoner = _context.Bewoners.FirstOrDefault(t => t.Id == id);
+            bewoner = _context.Bewoners.Include(x => x.Personeel).FirstOrDefault(t => t.Id == id);
             return bewoner != null;
         }
 

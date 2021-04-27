@@ -7,8 +7,8 @@ namespace RestApi.Data
 {
     public class BewonerDataInitializer
     {
-        private readonly BewonerContext _dbContext;
-        public BewonerDataInitializer(BewonerContext DbContext)
+        private readonly ApplicationDbContext _dbContext;
+        public BewonerDataInitializer(ApplicationDbContext DbContext)
         {
             _dbContext = DbContext;
         }

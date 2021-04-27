@@ -14,5 +14,6 @@ namespace RestApi.Models
         public DateTime GeboorteDatum { get; set; }
         public bool EetOpKamer { get; set; }
         public bool WordtGehaald { get; set; }
+        public Personeel Personeel { get; set; }
     }
 }
