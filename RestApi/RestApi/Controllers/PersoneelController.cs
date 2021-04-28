@@ -36,6 +36,7 @@ namespace RestApi.Controllers
                 return _personeelRepository.GetAll().OrderBy(r => r.Name);
             return _personeelRepository.GetAll().Where(x => x.Name.Equals(naam)).OrderBy(r => r.Name);
         }
+
         [HttpPost("addImage/{id}")]
         [AllowAnonymous]
         public ActionResult<String> AddImage(int id)

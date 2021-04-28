@@ -15,7 +15,7 @@ namespace RestApi.Data.Mappers
             builder.ToTable("Bewoner");
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.Personeel).WithMany(x => x.Bewoners).OnDelete(DeleteBehavior.Restrict);
-
+            builder.Property(r => r.Name).IsRequired().HasMaxLength(50);
         }
     }
 }

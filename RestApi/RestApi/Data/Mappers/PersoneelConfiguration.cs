@@ -14,6 +14,7 @@ namespace RestApi.Data.Mappers
         {
             builder.ToTable("Personeel");
             builder.HasKey(x => x.Id);
+            builder.Property(r => r.Name).IsRequired().HasMaxLength(50);
             builder.HasMany(x => x.Bewoners).WithOne(x => x.Personeel).OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(b => b.Image).WithOne(i => i.Persoon).HasForeignKey<Image>(b => b.PersoonId);
         }

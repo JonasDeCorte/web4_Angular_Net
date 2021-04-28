@@ -38,6 +38,10 @@ namespace RestApi
             services.AddScoped<IBewonerRepository, BewonerRepository>();
             services.AddScoped<IPersoneelRepository, PersoneelRepository>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             services.AddOpenApiDocument(c =>
             {
                 c.DocumentName = "apidocs";
