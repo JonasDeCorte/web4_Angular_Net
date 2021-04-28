@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'environments/environment';
@@ -7,7 +7,7 @@ import { throwError } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Personeel } from './personeel/personeel.model';
-
+import {Image} from './image.model'
 @Injectable({
   providedIn: 'root',
 })
@@ -22,34 +22,7 @@ export class PersoneelDataService {
       this._personeel$.next(this._personeel);
     });
   }
-  form: FormGroup = new FormGroup({
-    $key: new FormControl(null),
-    Name: new FormControl('', Validators.required),
-    Functe: new FormControl('', Validators.required),
-    GeboorteDatum: new FormControl(''),
-    DatumInDienst: new FormControl(''),
-    Email: new FormControl('',Validators.email),
-    TelefoonNr: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    Postcode: new FormControl(''),
-    Straat: new FormControl(''),
-    Huisnummer: new FormControl(''),
-    Land: new FormControl(''),
-  });
-  initializeFormGroup() {
-    this.form.setValue({
-      $key:null,
-      Name: '',
-      Functie: '',
-      GeboorteDatum: '',
-      DatumInDienst: '',
-      Email: '',
-      TelefoonNr: '',
-      Postcode: '',
-      Straat: '',
-      Huisnummer: '',
-      Land: '',
-    });
-  }
+
   get allPersoneel$(): Observable<Personeel[]> {
     return this._personeel$;
   }
@@ -72,6 +45,31 @@ export class PersoneelDataService {
         this._personeel = [...this._personeel, pers];
         this._personeel$.next(this._personeel);
       });
+ }
+ public addImage(file: File, persoonId: number): Observable<string>
+ {
+     
+     const formData = new FormData();
+     formData.append('file', file, file.name);
+     
+     return this.http.post(`${environment.apiUrl}/Personeel/addImage/${persoonId}`, formData).pipe(
+       map((a: any): string => a)
+     );
+ }
+ public getImage(id: number): Observable<any[]>
+ {
+   return this.http.get(`${environment.apiUrl}/Personeel/getImage/${id}`).pipe(
+     catchError(this.handleError),
+     map((image: any): any[] => 
+     {
+         if (image)
+         {
+         return image.imageData;
+         }
+         return null;
+       
+     })
+   )
  }
  editPersoneel(personeel: Personeel){
    return this.http.put(`${environment.apiUrl}/Personeel/${personeel.id}`, personeel.toJSON())

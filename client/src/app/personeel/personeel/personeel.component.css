@@ -24,3 +24,38 @@
   align-items: center;
  
 }
+.card
+{
+    width:250px;
+    height: 330px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 0px;
+}
+
+.fotoKader
+{
+    
+    width:250px;
+    height:172px;
+    background-color: whitesmoke;
+    overflow: hidden;
+    
+}
+
+.imageAlt
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title
+{
+    
+    overflow: hidden;
+}
+
+p
+{
+    margin-left: 10px;
+}

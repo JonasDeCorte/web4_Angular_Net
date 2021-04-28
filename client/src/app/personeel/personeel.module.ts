@@ -10,6 +10,7 @@ import { PersoneelResolver } from './PersoneelResolver';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'app/material/material.module';
 
+
 const routes: Routes =  [
   { path: 'list', component: PersoneelLijstComponent },
   { path: 'add', component: AddPersoneelComponent },
