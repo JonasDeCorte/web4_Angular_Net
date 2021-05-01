@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { AddPersoneelComponent } from './personeel/add-personeel/add-personeel.component';
-import { PersoneelLijstComponent } from './personeel/personeel-lijst/personeel-lijst.component';
-import { PersoneelEditComponent } from './personeel/personeel-edit/personeel-edit.component';
-import { PersoneelResolver } from './personeel/PersoneelResolver';
 
 
 
@@ -13,6 +9,10 @@ const appRoutes: Routes = [
   {
     path: 'personeel',
     loadChildren: () => import('./personeel/personeel.module').then(mod => mod.PersoneelModule)
+  },
+  {
+    path: 'bewoner',
+    loadChildren:() => import('./bewoner/bewoner.module').then(mod => mod.BewonerModule)
   },
   // { path: 'personeel/list', component: PersoneelLijstComponent },
   // { path: 'personeel/add', component: AddPersoneelComponent },

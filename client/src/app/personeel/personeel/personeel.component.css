@@ -2,11 +2,6 @@
   .example-card {
     max-width: 400px;
   }
-  
-  .example-header-image {
-    background-image: url('https://p.kindpng.com/picc/s/78-785904_block-chamber-of-commerce-avatar-white-avatar-icon.png');
-    background-size: cover;
-  }
   mat-toolbar {
     justify-content: space-between;
 }

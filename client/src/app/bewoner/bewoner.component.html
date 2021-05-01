@@ -1,0 +1,43 @@
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="center">
+    <div fxFlex="75%">
+      <mat-card>
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+        <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="dataSource" matSort>
+            
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> naam </th>
+              <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+           
+            <ng-container matColumnDef="geboorteDatum">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> geboorteDatum </th>
+              <td mat-cell *matCellDef="let row"> {{row.geboorteDatum}} </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="eetOpKamer">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header> eetOpKamer </th>
+              <td mat-cell *matCellDef="let row"> {{row.eetOpKamer}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="wordtGehaald">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> wordtGehaald </th>
+                <td mat-cell *matCellDef="let row"> {{row.wordtGehaald}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="personeel">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> personeel </th>
+                <td mat-cell *matCellDef="let row"> {{row.personeel}} </td>
+              </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="example-element-row"
+              (click)="onRowClicked(row)">
+            </tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[2, 5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
