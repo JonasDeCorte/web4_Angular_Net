@@ -15,5 +15,7 @@ namespace RestApi.Models
         public bool EetOpKamer { get; set; }
         public bool WordtGehaald { get; set; }
         public Personeel Personeel { get; set; }
+
+    
     }
 }
