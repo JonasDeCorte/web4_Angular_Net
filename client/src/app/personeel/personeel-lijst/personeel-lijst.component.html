@@ -1,9 +1,3 @@
-<header>
-  <mat-toolbar color="primary">
-    <span>Lijst van Personeel</span>
-  </mat-toolbar>
-</header>
-
 <div *ngIf="personeel$ | async as personeel; else loadingOrError">
   <div fxLayout="column" fxLayoutGap="2%">
     <mat-form-field>

@@ -16,6 +16,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BewonerComponent } from './bewoner/bewoner.component';
 import { BewonerModule } from './bewoner/bewoner.module';
+import { UserModule } from './user/user.module';
+import { httpInterceptorProviders } from './interceptors';
+import { PersoneelModule } from './personeel/personeel.module';
 
 
 
@@ -32,6 +35,7 @@ import { BewonerModule } from './bewoner/bewoner.module';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
+    UserModule,
    // PersoneelModule,
     LayoutModule,
     MatToolbarModule,
@@ -39,14 +43,15 @@ import { BewonerModule } from './bewoner/bewoner.module';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    BewonerModule,
+    BewonerModule, 
     AppRoutingModule,
+   
     
     
    
   ],
   
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

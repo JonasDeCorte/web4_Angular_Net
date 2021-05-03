@@ -1,13 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { throwError } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Personeel } from './personeel/personeel.model';
-import {Image} from './image.model'
 @Injectable({
   providedIn: 'root',
 })

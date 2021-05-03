@@ -1,20 +1,22 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1%" fxLayoutAlign="center">
     <div fxFlex="75%">
       <mat-card>
-        <mat-form-field>
+        <div fxLayout fxLayoutAlign="center center">
+        <mat-form-field fxFlex="40%">
           <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
         </mat-form-field>
+      </div>
         <div class="mat-elevation-z8">
           <table mat-table [dataSource]="dataSource" matSort>
             
-            <ng-container matColumnDef="name">
+            <ng-container  matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> naam </th>
               <td mat-cell *matCellDef="let row"> {{row.name}} </td>
             </ng-container>
            
-            <ng-container matColumnDef="geboorteDatum">
+            <ng-container  matColumnDef="geboorteDatum">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> geboorteDatum </th>
-              <td mat-cell *matCellDef="let row"> {{row.geboorteDatum}} </td>
+              <td mat-cell *matCellDef="let row"> {{row.geboorteDatum | date: 'fullDate'}} </td>
             </ng-container>
           
             <ng-container matColumnDef="eetOpKamer">
