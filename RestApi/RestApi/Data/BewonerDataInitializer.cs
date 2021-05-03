@@ -1,7 +1,9 @@
-﻿using RestApi.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using RestApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RestApi.Data
@@ -10,15 +12,27 @@ namespace RestApi.Data
     {
         
         private readonly ApplicationDbContext _dbContext;
-        public BewonerDataInitializer(ApplicationDbContext DbContext)
+        private readonly UserManager<IdentityUser> _userManager;
+        public BewonerDataInitializer(ApplicationDbContext DbContext, UserManager<IdentityUser> userManager)
         {
             _dbContext = DbContext;
+            _userManager = userManager;
         }
-        public void InitializeData()
+        public async Task InitializeData()
         {
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
+                Admin HoofdAdmin = new Admin { Email = "master@hogent.be", FirstName = "admin", LastName = "master" };
+                _dbContext.Admins.Add(HoofdAdmin);
+                await CreateUser(HoofdAdmin.Email, "P@ssword1111");
+
+                Admin ReserveAdmin = new Admin { Email = "Reservemaster@hogent.be", FirstName = "admin", LastName = "reserve" };
+               
+                _dbContext.Admins.Add(ReserveAdmin);
+                await CreateUser(ReserveAdmin.Email, "P@ssword1111");   
+                
+                _dbContext.SaveChanges();
                 ICollection<Personeel> persooneelsLijst = new List<Personeel>();
                 Personeel persoon;
                 string functie = "";
@@ -47,6 +61,12 @@ namespace RestApi.Data
                 _dbContext.SaveChanges();
 
             }
+        }
+        private async Task CreateUser(string email, string password)
+        {
+            var user = new IdentityUser { UserName = email, Email = email };
+
+            await _userManager.CreateAsync(user, password);
         }
     }
 }

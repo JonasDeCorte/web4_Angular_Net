@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestApi.Models;
@@ -14,22 +15,27 @@ namespace RestApi.Controllers
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     public class PersoneelController : ControllerBase
     {
         public readonly IPersoneelRepository _personeelRepository;
         private readonly IImageRepository _imageRepository;
-        public PersoneelController(IPersoneelRepository personeelRepository, IImageRepository imageRepository)
+        private readonly IAdminRepository _adminRepository;
+        public PersoneelController(IPersoneelRepository personeelRepository, IImageRepository imageRepository, IAdminRepository adminRepository)
         {
             _personeelRepository = personeelRepository;
             _imageRepository = imageRepository;
+            _adminRepository = adminRepository;
         }
         /// <summary>
         /// get all Personeels - get Personeels by naam
         /// </summary>
         /// <param name="naam">de naam van de Personeel</param>
         /// <returns></returns>
+        /// 
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Personeel> GetPersoneels(string naam)
         {
             if (naam == null)
@@ -39,6 +45,7 @@ namespace RestApi.Controllers
 
         [HttpPost("addImage/{id}")]
         [AllowAnonymous]
+        [Authorize]
         public ActionResult<String> AddImage(int id)
         {
             IFormFile files = Request.Form.Files[0];
@@ -65,6 +72,7 @@ namespace RestApi.Controllers
 
         }
         [HttpGet("getImage/{id}")]
+        [Authorize]
         public ActionResult<Image> GetImage(int id)
         {
             try
@@ -89,7 +97,8 @@ namespace RestApi.Controllers
             /// <param name="id">de id van een Personeel</param>
             /// <returns></returns>
             [HttpGet("{id}")]
-            public ActionResult<Personeel> GetPersoneel(int id)
+        [Authorize]
+        public ActionResult<Personeel> GetPersoneel(int id)
         {
             Personeel Personeel = _personeelRepository.GetBy(id);
             if (Personeel == null) return NotFound();
@@ -101,6 +110,7 @@ namespace RestApi.Controllers
         /// <param name="Personeel">de nieuwe Personeel</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public ActionResult<Personeel> PostPersoneel(Personeel Personeel)
         {
             try
@@ -126,6 +136,7 @@ namespace RestApi.Controllers
         /// <param name="Personeel">de nieuwe gegevens van de Personeel</param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult PutPersoneel(int id, Personeel Personeel)
         {
             if (id != Personeel.Id)
@@ -143,6 +154,7 @@ namespace RestApi.Controllers
         /// <param name="id">id van de te verwijderen Personeel</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeletePersoneel(int id)
         {
             Personeel Personeel = _personeelRepository.GetBy(id);

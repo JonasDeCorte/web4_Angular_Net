@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RestApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace RestApi.Controllers
@@ -11,13 +14,16 @@ namespace RestApi.Controllers
     [ApiConventionType(typeof(DefaultApiConventions))]
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiController]
     public class BewonerController : ControllerBase
     {
         public readonly IBewonerRepository _bewonerRepository;
-        public BewonerController(IBewonerRepository bewonerRepository)
+        private readonly IAdminRepository _adminRepository;
+        public BewonerController(IBewonerRepository bewonerRepository, IAdminRepository adminRepository)
         {
             _bewonerRepository = bewonerRepository;
+            _adminRepository = adminRepository;
         }
         /// <summary>
         /// get all bewoners - get bewoners by naam
@@ -25,6 +31,7 @@ namespace RestApi.Controllers
         /// <param name="naam">de naam van de bewoner</param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public IEnumerable<Bewoner> GetBewoners(string naam) {
             if(naam == null)
                 return _bewonerRepository.GetAll().OrderBy(r => r.Name);
@@ -36,6 +43,7 @@ namespace RestApi.Controllers
         /// <param name="id">de id van een bewoner</param>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize]
         public ActionResult<Bewoner> GetBewoner(int id)
         {
             Bewoner bewoner = _bewonerRepository.GetBy(id);
@@ -48,6 +56,7 @@ namespace RestApi.Controllers
         /// <param name="bewoner">de nieuwe bewoner</param>
         /// <returns></returns>
         [HttpPost]
+        [Authorize]
         public ActionResult<Bewoner> PostBewoner(Bewoner bewoner)
         {
             try
@@ -73,6 +82,7 @@ namespace RestApi.Controllers
         /// <param name="bewoner">de nieuwe gegevens van de bewoner</param>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize]
         public IActionResult PutBewoner(int id, Bewoner bewoner)
         {
             if (id != bewoner.Id)
@@ -90,6 +100,7 @@ namespace RestApi.Controllers
         /// <param name="id">id van de te verwijderen bewoner</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize]
         public IActionResult DeleteBewoner(int id)
         {
             Bewoner bewoner = _bewonerRepository.GetBy(id);
