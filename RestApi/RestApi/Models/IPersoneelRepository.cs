@@ -10,7 +10,7 @@ namespace RestApi.Models
         Personeel GetBy(int id);
         bool TryGetPersoneel(int id, out Personeel personeel);
         IEnumerable<Personeel> GetAll();
-        IEnumerable<Personeel> GetBy(string name = null);
+        IEnumerable<Personeel> GetBy(string name = null, string functie = null);
         void Add(Personeel personeel);
         void Delete(Personeel personeel);
         void Update(Personeel personeel);

@@ -29,18 +29,20 @@ namespace RestApi.Controllers
             _adminRepository = adminRepository;
         }
         /// <summary>
-        /// get all Personeels - get Personeels by naam
+        /// get all personen - get persoon by naam, functie
         /// </summary>
-        /// <param name="naam">de naam van de Personeel</param>
+        /// <param name="naam">de naam van de persoon</param>
+        ///  /// <param name="functie">de functie van de persoon</param>
         /// <returns></returns>
         /// 
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Personeel> GetPersoneels(string naam)
+        public IEnumerable<Personeel> GetPersoneels(string naam = null, string functie = null)
         {
-            if (naam == null)
-                return _personeelRepository.GetAll().OrderBy(r => r.Name);
-            return _personeelRepository.GetAll().Where(x => x.Name.Equals(naam)).OrderBy(r => r.Name);
+            if (string.IsNullOrEmpty(naam) && string.IsNullOrEmpty(functie))
+                return _personeelRepository.GetAll();
+
+            return _personeelRepository.GetBy(naam, functie);
         }
 
         [HttpPost("addImage/{id}")]

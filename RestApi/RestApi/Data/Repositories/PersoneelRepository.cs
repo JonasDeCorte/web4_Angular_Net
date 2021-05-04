@@ -40,21 +40,14 @@ namespace RestApi.Data.Repositories
             return _personeel.Include(x => x.Image).Include(x => x.Bewoners).SingleOrDefault(r => r.Id == id);
         }
 
-        public IEnumerable<Personeel> GetBy(string name = null)
+        public IEnumerable<Personeel> GetBy(string name = null, string functie = null)
         {
-            var Personeels = _personeel.AsQueryable();
+            var PersoneelsLijstFiltered = _personeel.Include(x => x.Image).Include(x => x.Bewoners).AsQueryable();
             if (!string.IsNullOrEmpty(name))
-                Personeels = _personeel.Where(r => r.Name.IndexOf(name) >= 0);
-            /* to do 
-            if (EetOpKamer.Equals(true))
-                Personeels = _Personeels.Where(r => r.EetOpKamer == EetOpKamer);
-            else
-                Personeels = _Personeels.Where(r => r.EetOpKamer != EetOpKamer);
-            if (WordtGehaald.Equals(true))
-                Personeels = _Personeels.Where(r => r.WordtGehaald == WordtGehaald);
-            else
-                Personeels = _Personeels.Where(r => r.WordtGehaald != WordtGehaald);*/
-            return _personeel.OrderBy(r => r.Name).ToList();
+                PersoneelsLijstFiltered = _personeel.Where(r => r.Name.IndexOf(name) >= 0);
+            if (!string.IsNullOrEmpty(functie))
+                PersoneelsLijstFiltered = _personeel.Where(r => r.Functie==functie);
+            return PersoneelsLijstFiltered.OrderBy(r => r.Name).ToList();
         }
 
         public void SaveChanges()
