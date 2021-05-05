@@ -36,7 +36,7 @@ export class PersoneelComponent implements OnInit {
         
       });
   }
-  onEdit(){
+  onEdit(persoonId: number){
     const persId = this.personeel ? this.personeel.id : null;
     this.router.navigate([`/personeel/edit/${persId}`]);
   }
@@ -51,8 +51,12 @@ export class PersoneelComponent implements OnInit {
   {
     this.personeelDataService.addImage(this.fileToUpload,persoonId).subscribe();
   }
+ 
   refreshPage() {
     window.location.reload();
+   }
+   deletePersoon(){
+     this.personeelDataService.deletePersoon(this.personeel);
    }
 
 }

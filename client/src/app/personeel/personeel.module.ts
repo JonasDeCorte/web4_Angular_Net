@@ -5,7 +5,6 @@ import { PersoneelLijstComponent } from './personeel-lijst/personeel-lijst.compo
 import { AddPersoneelComponent } from './add-personeel/add-personeel.component';
 import { PersoneelFilterPipe } from './personeel-filter.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
-import { PersoneelEditComponent } from './personeel-edit/personeel-edit.component';
 import { PersoneelResolver } from './PersoneelResolver';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'app/material/material.module';
@@ -16,7 +15,7 @@ const routes: Routes =  [
   { path: 'add', component: AddPersoneelComponent },
   { 
     path: 'edit/:id', 
-  component: PersoneelEditComponent,
+  component: AddPersoneelComponent,
    resolve: {personeel: PersoneelResolver} 
   },
 ] ;
@@ -26,7 +25,7 @@ const routes: Routes =  [
     PersoneelLijstComponent, 
     AddPersoneelComponent, 
     PersoneelFilterPipe, 
-    PersoneelEditComponent],
+    ],
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), MaterialModule,
   ],

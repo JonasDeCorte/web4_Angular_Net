@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="center">
   <form [formGroup]="personeelFG" (ngSubmit)="onSubmit()">
     <div class="form-row">
     <mat-form-field appearance="outline">
@@ -181,10 +181,24 @@
         </mat-form-field>
       </div>
     </div>
-   
+    <mat-form-field>
+      <mat-select #mySel  placeholder="selectedBewoners" multiple [(ngModel)]= "selectedBewoners">
+        <mat-option *ngFor="let bewoner of BewonersList; let i =index" [value]="bewoner" (onSelectionChange)="onOut($event,i)"  >
+        {{bewoner.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div style="margin-top:1rem;">
+      <ul>
+        <li *ngFor="let item of selectedBewoners" style="padding:1rem;margin:.5rem;">
+              {{item |json }}
+        </li>
+      </ul>
+    </div>
     <button type="submit" mat-raised-button [disabled]="!personeelFG.valid">
       add Personeel
     </button>
   </form>
 </mat-card>
+
 {{ personeelFG.value | json }}

@@ -1,43 +1,38 @@
-<div *ngIf="personeel$ | async as personeel; else loadingOrError">
-  <div fxLayout="column" fxLayoutGap="2%">
+<div fxLayout="column" fxLayoutGap="2%">
+  <mat-card>
     <mat-form-field>
-      <input 
+      <input
         matInput
         (keyup)="filterPersoneel$.next($event.target.value)"
         placeholder="filter"
         type="text"
+        [value]="filterPersoneelName"
       />
     </mat-form-field>
-    <button class="width" mat-raised-button color='primary' (click)="onCreate()">
-      <mat-icon>add</mat-icon>
-      Voeg werknemer toe
-    </button>
-    <!-- <app-add-personeel
-      (newPersoneel)="addNewPersoneel($event)"
-    ></app-add-personeel> -->
+  </mat-card>
+  <mat-card class="error" *ngIf="errorMessage">
+    got an error while loading the personeel list: {{ errorMessage }}
+  </mat-card>
+  <div *ngIf="personen$ | async as personen; else loadingOrError">
     <div
-      fxLayout="row wrap"
-      fxLayout.xs="column"
-      fxLayoutGap="0.5%"
-      fxLayoutAlign="start"
+    fxLayout="row wrap"
+    fxLayout.xs="column"
+    fxLayoutGap="0.5%"
+    fxLayoutAlign="start"
+  >
+    <div
+      class="personeel"
+      *ngFor="  let localPersoneel of personen"
+      fxFlex="0 0 calc(25%-0.5%)"
+      fxFlex.xs="100%"
     >
-      <div
-        class="personeel"
-        *ngFor="  let localPersoneel of personeel | personeelFilter: filterPersoneelName "
-        fxFlex="0 0 calc(25%-0.5%)"
-        fxFlex.xs="100%"
-      >
-        <app-personeel [personeel]="localPersoneel"></app-personeel>
-      </div>
+      <app-personeel [personeel]="localPersoneel"></app-personeel>
     </div>
   </div>
+</div><ng-template #loadingOrError>
+  <span *ngIf="errorMessage; else loading"></span>
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</ng-template>
 </div>
-<ng-template #loadingOrError>
-  <mat-card class="error" *ngIf="errorMessage; else loading">
-     Error loading the personeel list: {{ errorMessage }}. <br/>
-      Please try again later.
-    <ng-template #loading>
-      <mat-spinner></mat-spinner>
-    </ng-template>
-  </mat-card>
-</ng-template> 

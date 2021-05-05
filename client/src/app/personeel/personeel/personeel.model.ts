@@ -1,3 +1,6 @@
+import { Bewoner, BewonerJson } from "app/bewoner/bewoner.model";
+
+
 interface PersoneelJson {
     id: number;
     name: string;
@@ -9,25 +12,26 @@ interface PersoneelJson {
      postcode : string,
      straat: string,
      huisnummer: string,
-     land: string
+     land: string,
+     bewoners: BewonerJson[]
   }
 export class Personeel {
-    constructor(
-        private _id: number,
+     private _id: number;
+     constructor(
         private _name: string,
         private _functie : string,
-        private _geboorteDatum : Date,
-        private _datumIndienst : Date,
+        private _geboorteDatum :Date,
+        private _datumIndienst :Date,
         private _email: string,
         private _telefoonNummer: string,
         private  _postcode: string,
         private _straat: string,
         private _huisnummer: string,
-        private _land: string
+        private _land: string,
+        private _bewoners = new Array<Bewoner>()
       ) {}
       static fromJSON(json: PersoneelJson): Personeel {
         const pers = new Personeel(
-          json.id,
           json.name,
           json.functie,
           json.geboorteDatum,
@@ -37,15 +41,13 @@ export class Personeel {
           json.postcode,
           json.straat,
           json.huisnummer,
-          json.land
-
-
+          json.land,
+          json.bewoners.map(Bewoner.fromJSON)
         );
         return pers;
       }
       toJSON(): PersoneelJson{
         return <PersoneelJson>{
-         
           name: this.name,
           functie: this.functie,
           geboorteDatum: this.geboorteDatum,
@@ -55,7 +57,8 @@ export class Personeel {
           postcode: this.postcode,
           straat: this.straat,
           huisnummer: this.huisnummer,
-          land:  this.land
+          land:  this.land,
+          bewoners: this.bewoners.map(bewoner => bewoner.toJSON())
         };
       }
       
@@ -102,5 +105,10 @@ export class Personeel {
         return this._land;
       }
       set land(land : string){this._land = land;}
-      
+      get bewoners(): Bewoner[] {
+        return this._bewoners;
+      }
+      addBewoner(name: string, geboorteDatum: Date, eetOpKamer: Boolean, wordtGehaald: boolean, begeleider: Personeel) {
+        this._bewoners.push(new Bewoner(name, geboorteDatum, eetOpKamer, wordtGehaald, begeleider));
+      }
 }

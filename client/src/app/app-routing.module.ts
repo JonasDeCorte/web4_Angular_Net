@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+git import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -10,16 +10,15 @@ const appRoutes: Routes = [
   {
     path: 'personeel',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./personeel/personeel.module').then(mod => mod.PersoneelModule)
+    loadChildren: () => import('./personeel/personeel.module').then(mod => mod.PersoneelModule),
+    data: { preload: true },
   },
   {
     path: 'bewoner',
     canActivate: [ AuthGuard ],
-    loadChildren:() => import('./bewoner/bewoner.module').then(mod => mod.BewonerModule)
+    loadChildren:() => import('./bewoner/bewoner.module').then(mod => mod.BewonerModule),
+    data: { preload: true },
   },
-  // { path: 'personeel/list', component: PersoneelLijstComponent },
-  // { path: 'personeel/add', component: AddPersoneelComponent },
-  // { path: 'personeel/edit/:id', component: PersoneelEditComponent, resolve: {personeel: PersoneelResolver} },
   { path: '', redirectTo: 'personeel/list', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent}
 

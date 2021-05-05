@@ -1,6 +1,6 @@
 import { Personeel } from "app/personeel/personeel/personeel.model";
 
-interface BewonerJson {
+export interface BewonerJson {
     id: number;
     name: string;
     geboorteDatum: Date;
@@ -9,8 +9,8 @@ interface BewonerJson {
     personeel: Personeel;
   }
 export class Bewoner {
+    private _id: number
     constructor(
-        private _id: number,
         private _name: string,
         private _geboorteDatum : Date,
         private _eetOpKamer: Boolean,
@@ -19,13 +19,11 @@ export class Bewoner {
       ) {}
       static fromJSON(json: BewonerJson): Bewoner {
         const bewoner = new Bewoner(
-          json.id,
           json.name,
           json.geboorteDatum,
           json.eetOpKamer,
           json.wordtGehaald,
           json.personeel,
-        
         );
         return bewoner;
       }
