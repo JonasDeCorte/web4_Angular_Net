@@ -182,7 +182,7 @@
       </div>
     </div>
     <mat-form-field>
-      <mat-select #mySel  placeholder="selectedBewoners" multiple [(ngModel)]= "selectedBewoners">
+      <mat-select #mySel  placeholder="selectedBewoners" multiple [ngModelOptions]="{standalone: true}" [(ngModel)]= "selectedBewoners">
         <mat-option *ngFor="let bewoner of BewonersList; let i =index" [value]="bewoner" (onSelectionChange)="onOut($event,i)"  >
         {{bewoner.name}}
         </mat-option>

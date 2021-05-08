@@ -20,11 +20,11 @@
       </div>
     </div>
     <p>
-      is begeleider van "test"
+      is begeleider van {{personeel.bewoners}}
     </p>
   </mat-card-content>
   <mat-card-actions class="center">
-    <button (click)="onEdit(personeel.id)">
+    <button (click)="onEdit()">
       <mat-icon>edit_note</mat-icon>
     </button>
     <button (click)="deletePersoon()">

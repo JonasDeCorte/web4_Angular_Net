@@ -16,8 +16,8 @@ interface PersoneelJson {
      bewoners: BewonerJson[]
   }
 export class Personeel {
-     private _id: number;
      constructor(
+       private _id: number,
         private _name: string,
         private _functie : string,
         private _geboorteDatum :Date,
@@ -32,6 +32,7 @@ export class Personeel {
       ) {}
       static fromJSON(json: PersoneelJson): Personeel {
         const pers = new Personeel(
+          json.id,
           json.name,
           json.functie,
           json.geboorteDatum,
@@ -48,6 +49,7 @@ export class Personeel {
       }
       toJSON(): PersoneelJson{
         return <PersoneelJson>{
+          id: this.id,
           name: this.name,
           functie: this.functie,
           geboorteDatum: this.geboorteDatum,

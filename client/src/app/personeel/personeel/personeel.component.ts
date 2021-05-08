@@ -21,6 +21,8 @@ export class PersoneelComponent implements OnInit {
     private _sanitizer: DomSanitizer ) {}
 
   ngOnInit(): void {
+    console.log(this.personeel.name);
+    console.log(this.personeel.id);
     const persId = this.route.snapshot.paramMap.get('id');
     this.personeelDataService.getImage(this.personeel.id).subscribe(data =>
       {
@@ -36,7 +38,7 @@ export class PersoneelComponent implements OnInit {
         
       });
   }
-  onEdit(persoonId: number){
+  onEdit(){
     const persId = this.personeel ? this.personeel.id : null;
     this.router.navigate([`/personeel/edit/${persId}`]);
   }
@@ -44,6 +46,7 @@ export class PersoneelComponent implements OnInit {
     this.fileToUpload = event.target.files[0];
     const persId = this.personeel ? this.personeel.id : null;
     this.onUpload(persId);
+    console.log("Succes image uploaded");
     this.refreshPage();
 
   }

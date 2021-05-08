@@ -19,8 +19,8 @@ export class Image
     public get ImageData(): string{
         return this._imageData;
     }
-    public get ersoneelId(): number{
-        return this._personeelId;
-    }
+    // public get personeelId(): number{
+    //     return this._personeelId;
+    // }
     
 } 
