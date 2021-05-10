@@ -24,15 +24,14 @@
       <span class="fill-space"></span>
       <span *ngIf="loggedInUser$ | async as user; else loginTemplate">
         {{ user }}
-        <button (click)="logout()" mat-flat-button>
-          logout
-        </button>
+        <button style="margin: 5px;" mat-raised-button color="accent" (click)="logout()">logout</button>
       </span>
       <ng-template #loginTemplate>
         <span>
-          <button (click)="login()" mat-flat-button>
-            login
-          </button>
+          <div *ngIf="userName == null">
+            <button data-cy="image" style="margin: 5px;" (click)="register()" mat-raised-button color="accent">Register</button>
+            <button style="margin: 5px;" (click)="login()" mat-raised-button color="accent">login</button>
+         </div>
         </span>
       </ng-template>
     </mat-toolbar>

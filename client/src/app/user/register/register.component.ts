@@ -9,10 +9,11 @@ import {
 } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationServiceService } from 'app/notification-service.service';
+import { EMPTY } from 'rxjs';
 
 function patternValidator(regex: RegExp, error: ValidationErrors): ValidatorFn {
   return (control: AbstractControl): ValidationErrors => {
@@ -55,9 +56,8 @@ function serverSideValidateUsername(
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  public user: FormGroup;
   public errorMessage: string = '';
-
+  public registerForm: FormGroup;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.fb.group({
+    this.registerForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: [
@@ -93,6 +93,49 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+ 
+
+  onSubmit() {
+    this.authService
+      .register(
+        this.registerForm.value.firstname,
+        this.registerForm.value.lastname,
+        this.registerForm.value.email,
+        this.registerForm.value.passwordGroup.password
+      ).pipe(
+        catchError(err =>
+          {
+            
+            this.errorMessage = err;
+            return EMPTY;
+          }))
+      .subscribe(
+        (val) => {
+          if (val) {
+            if (this.authService.redirectUrl) {
+              this.router.navigateByUrl(this.authService.redirectUrl);
+              this.authService.redirectUrl = undefined;
+            } else {
+              this.notificationService.success(':: registered succesfully'); 
+              this.router.navigate(['/personeel/list']);
+              
+            }
+          } else {
+            this.notificationService.warn(':: something went wrong.'); 
+            this.errorMessage = `Could not register`;
+            
+          }
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.error instanceof Error) {
+            this.errorMessage = `Error while trying to login user ${this.registerForm.value.email}: ${err.error.message}`;
+          } else {
+            this.errorMessage = `Error ${err.status} while trying to login user ${this.registerForm.value.email}: ${err.error}`;
+          }
+        }
+      );
+  }
   getErrorMessage(errors: any) {
     if (!errors) {
       return null;
@@ -114,41 +157,5 @@ export class RegisterComponent implements OnInit {
     } else if (errors.passwordsDiffer) {
       return `passwords are not the same`;
     }
-  }
-
-  onSubmit() {
-    this.authService
-      .register(
-        this.user.value.firstname,
-        this.user.value.lastname,
-        this.user.value.email,
-        this.user.value.passwordGroup.password
-      )
-      .subscribe(
-        (val) => {
-          if (val) {
-            if (this.authService.redirectUrl) {
-              this.router.navigateByUrl(this.authService.redirectUrl);
-              this.authService.redirectUrl = undefined;
-            } else {
-              this.notificationService.success(':: logged in succesfully'); 
-              this.router.navigate(['/personeel/list']);
-              
-            }
-          } else {
-            this.notificationService.warn(':: something went wrong.'); 
-            this.errorMessage = `Could not login`;
-            
-          }
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err);
-          if (err.error instanceof Error) {
-            this.errorMessage = `Error while trying to login user ${this.user.value.email}: ${err.error.message}`;
-          } else {
-            this.errorMessage = `Error ${err.status} while trying to login user ${this.user.value.email}: ${err.error}`;
-          }
-        }
-      );
   }
 }

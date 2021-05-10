@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutAlign="center center" class="login-main">
+<!-- <div fxLayout="row" fxLayoutAlign="center center" class="login-main">
     <mat-card>
       <form [formGroup]="user" (ngSubmit)="onSubmit()">
         <mat-card-header>
@@ -127,4 +127,45 @@
         got an error while loading the personeel list: {{ errorMessage }}
       </mat-card>
     </mat-card>
-  </div>
+  </div> -->
+  <div>
+    <p class="errorMessage">{{errorMessage}}</p>
+<form [formGroup]= "registerForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+        <input matInput aria-label="email" placeholder="email" type="text" formControlName="email"/>
+        <mat-error *ngIf="registerForm.get('email').errors && registerForm.get('email').touched">
+            {{ getErrorMessage(registerForm.get('email').errors) }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <input matInput aria-label="voornaam" placeholder="voornaam" type="text" formControlName="voornaam"/>
+        <mat-error *ngIf="registerForm.get('voornaam').errors && registerForm.get('voornaam').touched">
+            {{ getErrorMessage(registerForm.get('voornaam').errors) }}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <input matInput aria-label="achternaam" placeholder="familienaam" type="text" formControlName="achternaam"/>
+        <mat-error *ngIf="registerForm.get('achternaam').errors && registerForm.get('achternaam').touched">
+            {{ getErrorMessage(registerForm.get('achternaam').errors) }}
+      </mat-error>
+    </mat-form-field >
+    <span formGroupName="passwordGroup">
+    <mat-form-field appearance="fill">
+        <input matInput aria-label="password" placeholder="wachtwoord" type="password" formControlName="password"/>
+        <mat-error *ngIf="registerForm.get('passwordGroup').get('password').errors && registerForm.get('passwordGroup').get('password').touched">
+            {{ getErrorMessage(registerForm.get('passwordGroup').get('password').errors) }}
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <input matInput aria-label="passwordConfirm" placeholder="bevestig je wachtwoord" type="password" formControlName="passwordConfirm"/>
+        <mat-error *ngIf="registerForm.get('passwordGroup').get('passwordConfirm').errors && registerForm.get('passwordGroup').get('password').touched">
+            {{ getErrorMessage(registerForm.get('passwordGroup').get('passwordConfirm').errors) }}
+      </mat-error>
+    </mat-form-field>
+</span>
+    <button [disabled]="!registerForm.valid" color="accent" mat-raised-button type="submit">
+        register
+      </button>
+</form>
+</div>

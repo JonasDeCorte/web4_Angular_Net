@@ -1,0 +1,13 @@
+div
+{
+    width: 200px;
+    background-color: whitesmoke;
+    margin:auto;
+    margin-top: 20px;
+    padding: 50px;
+}
+
+.errorMessage
+{
+    color:red;
+}

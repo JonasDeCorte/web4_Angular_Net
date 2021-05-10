@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-nav.component.css']
 })
 export class MainNavComponent {
-
+  public userName: string;
   loggedInUser$ = this._authenticationService.user$;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
@@ -25,13 +25,17 @@ export class MainNavComponent {
       private breakpointObserver: BreakpointObserver,
       private _authenticationService: AuthenticationService,
       private _router: Router
-    ) {}
+    ) { _authenticationService.user$.subscribe(l => this.userName = l);}
     logout() {
       this._authenticationService.logout();
     }
     login() {
-      console.log('login');
-      this._router.navigate(['/login']);
+      this._router.navigateByUrl('/login');
+    
+    }
+    public register()
+    {
+      this._router.navigateByUrl('/register');
     }
 
 }

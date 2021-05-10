@@ -5,11 +5,11 @@ import {
   AbstractControl,
   FormBuilder,
   FormGroup,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationServiceService } from 'app/notification-service.service';
+import { catchError } from 'rxjs/operators';
+import { EMPTY } from 'rxjs';
 
 function comparePasswords(control: AbstractControl): { [key: string]: any } {
   const password = control.get('password');
@@ -25,9 +25,9 @@ function comparePasswords(control: AbstractControl): { [key: string]: any } {
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  public user: FormGroup;
-  public errorMessage: string = '';
-
+  public logInForm: FormGroup;
+  public errorString: string;
+  public errorMessage: string;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -35,40 +35,37 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.user = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
+    this.logInForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    })
   }
-
-  onSubmit() {
-    this.authService
-      .login(this.user.value.username, this.user.value.password)
-      .subscribe(
-        (val) => {
-          if (val) {
-            if (this.authService.redirectUrl) {
-              this.router.navigateByUrl(this.authService.redirectUrl);
-              this.authService.redirectUrl = undefined;
+  onSubmit()
+  {
+    this.authService.login(
+      this.logInForm.value.email,
+      this.logInForm.value.password
+      ).pipe(
+        catchError(err =>
+          {
+            this.errorMessage = err; 
+            return EMPTY;
+          })
+      ).subscribe(val =>
+        {
+          
+            if (val) {
+              if (this.authService.redirectUrl) {
+                this.router.navigateByUrl(this.authService.redirectUrl);
+                this.authService.redirectUrl = undefined;
+              } else {           
+                this.notificationService.success(':: logged in succesfully'); 
+                this.router.navigateByUrl('/personeel/list');
+              }
             } else {
-              this.notificationService.success(':: logged in succesfully'); 
-              this.router.navigate(['/personeel/list']);
               
             }
-          } else {
-            this.notificationService.warn(':: something went wrong.'); 
-            this.errorMessage = `Could not login`;
-            
-          }
-        },
-        (err: HttpErrorResponse) => {
-          console.log(err);
-          if (err.error instanceof Error) {
-            this.errorMessage = `Error while trying to login user ${this.user.value.username}: ${err.error.message}`;
-          } else {
-            this.errorMessage = `Error ${err.status} while trying to login user ${this.user.value.username}: ${err.error}`;
-          }
-        }
-      );
+        this.errorString = this.authService.errorString;
+        });
   }
 }
