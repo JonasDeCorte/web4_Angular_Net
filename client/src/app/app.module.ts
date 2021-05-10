@@ -27,7 +27,7 @@ import { PersoneelModule } from './personeel/personeel.module';
     AppComponent,
     PageNotFoundComponent,
     MainNavComponent,
-    BewonerComponent,
+    //BewonerComponent,
     
   ],
   imports: [

@@ -1,6 +1,4 @@
 import { Bewoner, BewonerJson } from "app/bewoner/bewoner.model";
-
-
 interface PersoneelJson {
     id: number;
     name: string;
@@ -16,8 +14,8 @@ interface PersoneelJson {
      bewoners: BewonerJson[]
   }
 export class Personeel {
-     constructor(
-       private _id: number,
+  private _id: number; 
+  constructor(
         private _name: string,
         private _functie : string,
         private _geboorteDatum :Date,
@@ -32,7 +30,6 @@ export class Personeel {
       ) {}
       static fromJSON(json: PersoneelJson): Personeel {
         const pers = new Personeel(
-          json.id,
           json.name,
           json.functie,
           json.geboorteDatum,
@@ -45,11 +42,12 @@ export class Personeel {
           json.land,
           json.bewoners.map(Bewoner.fromJSON)
         );
+        pers._id = json.id;
         return pers;
       }
       toJSON(): PersoneelJson{
+       // id: this.id,
         return <PersoneelJson>{
-          id: this.id,
           name: this.name,
           functie: this.functie,
           geboorteDatum: this.geboorteDatum,
@@ -110,7 +108,7 @@ export class Personeel {
       get bewoners(): Bewoner[] {
         return this._bewoners;
       }
-      addBewoner(name: string, geboorteDatum: Date, eetOpKamer: Boolean, wordtGehaald: boolean, begeleider: Personeel) {
-        this._bewoners.push(new Bewoner(name, geboorteDatum, eetOpKamer, wordtGehaald, begeleider));
+      addBewoner(name: string, geboorteDatum: Date, eetOpKamer: Boolean, wordtGehaald: boolean) {
+        this._bewoners.push(new Bewoner(name, geboorteDatum, eetOpKamer, wordtGehaald));
       }
 }

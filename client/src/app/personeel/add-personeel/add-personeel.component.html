@@ -1,49 +1,50 @@
+<h1 *ngIf="isAddMode">Add User</h1>
+<h1 *ngIf="!isAddMode">Edit User {{persoonOnEdit.name}}</h1>
 <mat-card class="center">
   <form [formGroup]="personeelFG" (ngSubmit)="onSubmit()">
     <div class="form-row">
-    <mat-form-field appearance="outline">
-      <mat-label>Naam</mat-label>
-      <input
-        matInput
-        placeholder="Naam"
-        type="text"
-        aria-label="name"
-        #newPersoneelname
-        required
-        formControlName="name"
-      />
-      <mat-icon matSuffix>person</mat-icon>
-      <mat-error
-        *ngIf="
-          personeelFG.get('name')['errors'] && personeelFG.get('name').touched
-        "
-      >
-        {{ getErrorMessage(personeelFG.get("name")["errors"]) }}
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Functie</mat-label>
-      <input
-        matInput
-        placeholder="Functie"
-        type="text"
-        aria-label="Functie"
-        required
-        formControlName="functie"
-      />
-      <mat-icon matSuffix>construction</mat-icon>
-      <mat-error
-        *ngIf="
-          personeelFG.get('functie')['errors'] &&
-          personeelFG.get('functie').touched
-        "
-      >
-        {{ getErrorMessage(personeelFG.get("functie")["errors"]) }}
-      </mat-error>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Naam</mat-label>
+        <input
+          matInput
+          placeholder="Naam"
+          type="text"
+          aria-label="name"
+          #newPersoneelname
+          required
+          formControlName="name"
+        />
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error
+          *ngIf="
+            personeelFG.get('name')['errors'] && personeelFG.get('name').touched
+          "
+        >
+          {{ getErrorMessage(personeelFG.get("name")["errors"]) }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Functie</mat-label>
+        <input
+          matInput
+          placeholder="Functie"
+          type="text"
+          aria-label="Functie"
+          required
+          formControlName="functie"
+        />
+        <mat-icon matSuffix>construction</mat-icon>
+        <mat-error
+          *ngIf="
+            personeelFG.get('functie')['errors'] &&
+            personeelFG.get('functie').touched
+          "
+        >
+          {{ getErrorMessage(personeelFG.get("functie")["errors"]) }}
+        </mat-error>
+      </mat-form-field>
     </div>
-    <div class="form-row"> 
-      
+    <div class="form-row">
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input
@@ -86,19 +87,19 @@
         </mat-error>
       </mat-form-field>
     </div>
-    
+
     <div class="form-row">
       <mat-form-field appearance="outline">
         <mat-label>GeboorteDatum</mat-label>
         <input
-          matInput 
-          placeholder="GeboorteDatum" 
-          type="date"  
+          matInput
+          placeholder="GeboorteDatum"
+          type="date"
           aria-label="GeboorteDatum"
           required
           formControlName="geboorteDatum"
         />
-       
+
         <mat-error
           *ngIf="
             personeelFG.get('geboorteDatum')['errors'] &&
@@ -107,9 +108,8 @@
         >
           {{ getErrorMessage(personeelFG.get("geboorteDatum")["errors"]) }}
         </mat-error>
-        
       </mat-form-field>
-    
+
       <mat-form-field appearance="outline">
         <mat-label>Datum in dienst</mat-label>
         <input
@@ -181,24 +181,14 @@
         </mat-form-field>
       </div>
     </div>
-    <mat-form-field>
-      <mat-select #mySel  placeholder="selectedBewoners" multiple [ngModelOptions]="{standalone: true}" [(ngModel)]= "selectedBewoners">
-        <mat-option *ngFor="let bewoner of BewonersList; let i =index" [value]="bewoner" (onSelectionChange)="onOut($event,i)"  >
-        {{bewoner.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div style="margin-top:1rem;">
-      <ul>
-        <li *ngFor="let item of selectedBewoners" style="padding:1rem;margin:.5rem;">
-              {{item |json }}
-        </li>
-      </ul>
-    </div>
     <button type="submit" mat-raised-button [disabled]="!personeelFG.valid">
-      add Personeel
+      Save
     </button>
   </form>
+  <app-bewoner (newItemEvent)="addBewoner($event)"> </app-bewoner>
+  <ul>
+    <li *ngFor="let bewoner of bewoners">{{bewoner.name}}</li>
+  </ul>
 </mat-card>
 
 {{ personeelFG.value | json }}

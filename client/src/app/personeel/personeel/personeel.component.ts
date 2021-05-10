@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Bewoner } from 'app/bewoner/bewoner.model';
 import { PersoneelDataService } from '../personeel-data.service';
 import { Personeel } from './personeel.model';
 
@@ -11,18 +12,15 @@ import { Personeel } from './personeel.model';
 })
 export class PersoneelComponent implements OnInit {
   @Input() public personeel: Personeel;
+  bewoners: Bewoner[] = [];
   private fileToUpload: File = null;
   public image: any;
-  title = 'Personeels register';
-
   constructor( private route: ActivatedRoute,
     private router: Router,
     private personeelDataService: PersoneelDataService,
     private _sanitizer: DomSanitizer ) {}
 
   ngOnInit(): void {
-    console.log(this.personeel.name);
-    console.log(this.personeel.id);
     const persId = this.route.snapshot.paramMap.get('id');
     this.personeelDataService.getImage(this.personeel.id).subscribe(data =>
       {
@@ -37,6 +35,10 @@ export class PersoneelComponent implements OnInit {
         }
         
       });
+      this.personeel.bewoners.forEach(x => {
+        this.bewoners.push(x);
+      })
+      
   }
   onEdit(){
     const persId = this.personeel ? this.personeel.id : null;

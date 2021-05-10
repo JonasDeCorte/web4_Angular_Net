@@ -19,9 +19,12 @@
         <button mat-button (click)="fileInput.click()">Select File</button>
       </div>
     </div>
-    <p>
-      is begeleider van {{personeel.bewoners}}
-    </p>
+    <div>
+      <ul>
+        <li *ngFor="let bewoner of bewoners">{{bewoner.name}}</li>
+      </ul>
+    </div>
+    
   </mat-card-content>
   <mat-card-actions class="center">
     <button (click)="onEdit()">

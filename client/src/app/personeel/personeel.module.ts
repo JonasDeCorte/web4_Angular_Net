@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PersoneelResolver } from './PersoneelResolver';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'app/material/material.module';
+import { BewonerComponent } from 'app/bewoner/bewoner.component';
 
 
 const routes: Routes =  [
@@ -25,6 +26,7 @@ const routes: Routes =  [
     PersoneelLijstComponent, 
     AddPersoneelComponent, 
     PersoneelFilterPipe, 
+    BewonerComponent
     ],
   imports: [
     CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), MaterialModule,

@@ -1,4 +1,4 @@
-import { Personeel } from "app/personeel/personeel/personeel.model";
+//mport { Personeel } from "app/personeel/personeel/personeel.model";
 
 export interface BewonerJson {
     id: number;
@@ -6,7 +6,7 @@ export interface BewonerJson {
     geboorteDatum: Date;
     eetOpKamer: Boolean;
     wordtGehaald: boolean;
-    personeel: Personeel;
+   // personeel: Personeel;
   }
 export class Bewoner {
     private _id: number
@@ -15,7 +15,7 @@ export class Bewoner {
         private _geboorteDatum : Date,
         private _eetOpKamer: Boolean,
         private _wordtGehaald: Boolean,
-        private _personeel: Personeel,  
+       // private _personeel: Personeel,  
       ) {}
       static fromJSON(json: BewonerJson): Bewoner {
         const bewoner = new Bewoner(
@@ -23,7 +23,7 @@ export class Bewoner {
           json.geboorteDatum,
           json.eetOpKamer,
           json.wordtGehaald,
-          json.personeel,
+          //json.personeel,
         );
         return bewoner;
       }
@@ -33,7 +33,7 @@ export class Bewoner {
           geboorteDatum: this._geboorteDatum,
           eetOpKamer: this._eetOpKamer,
           wordtGehaald: this._wordtGehaald,
-          personeel: this._personeel,        
+         // personeel: this._personeel,        
         };
       }
       get id() : number{
@@ -55,7 +55,7 @@ export class Bewoner {
         return this._wordtGehaald;
     }
     set wordtGehaald(wordtGehaald : Boolean){this._wordtGehaald = wordtGehaald;}
-    get personeel(): Personeel {return this._personeel;}
+  /*   get personeel(): Personeel {return this._personeel;}
     set personeel(persoon: Personeel){this._personeel = persoon;}
-    
+     */
 }

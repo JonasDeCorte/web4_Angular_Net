@@ -10,13 +10,16 @@ import { NotificationServiceService } from '../../notification-service.service';
 import { PersoneelDataService } from '../personeel-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
 import { BewonerDataServiceService } from 'app/bewoner/bewoner-data-service.service';
 import { Bewoner } from 'app/bewoner/bewoner.model';
 import { MatSelect } from '@angular/material/select';
 import { ViewChild } from '@angular/core';
 import { MatOption } from '@angular/material/core';
+import { reduce } from 'lodash';
+import { Input } from '@angular/core';
+import { BewonerComponent } from 'app/bewoner/bewoner.component';
 
 @Component({
   selector: 'app-add-personeel',
@@ -24,23 +27,34 @@ import { MatOption } from '@angular/material/core';
   styleUrls: ['./add-personeel.component.css'],
 })
 export class AddPersoneelComponent implements OnInit {
-  @ViewChild('mySel', { static: false }) skillSel: MatSelect;
+  public persoonOnEdit: Personeel = null;
   personeelFG: FormGroup;
   public errorMessage: string = '';
   public confirmationMessage: string = '';
-  selectedBewoners: any[] = [];
-  bewoners = new FormControl();
-  BewonersList: Bewoner[];
+  private id: string;
+  isAddMode: boolean;
+  submitted = false;
+  bewoners : Bewoner[] = [];
 
+  addBewoner(newItem: Bewoner) {
+   if(!this.bewoners.includes(newItem)){
+      this.bewoners.push(newItem);
+   } 
+   
+  }
   constructor(
     private _personeelDataService: PersoneelDataService,
     private fb: FormBuilder,
     private router: Router,
     private notificationService: NotificationServiceService,
-    private _bewonerDataService: BewonerDataServiceService
+    private _bewonerDataService: BewonerDataServiceService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.isAddMode = !this.id;
+    
     this.personeelFG = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       functie: ['', [Validators.required]],
@@ -55,114 +69,63 @@ export class AddPersoneelComponent implements OnInit {
         land: [''],
       }),
     });
-    this.getBewoners();
-  }
-  onOut(val, index) {
-    if (index === this.BewonersList.length) {
-      if (!val.source.selected && val.source.value === 'All') {
-        this.skillSel.options.forEach((itemName: MatOption) => {
-          itemName.selected
-            ? (itemName.deselect(), this.selectedBewoners.pop())
-            : this.selectedBewoners.pop();
-        });
-        return;
-      } else {
-        this.skillSel.options.forEach((itemName: MatOption, position) => {
-          itemName.selected
-            ? ''
-            : (itemName.select(), this.push(val, index, position, itemName));
-        });
-      }
-    } else {
-      let valueOfIndex = this.selectedBewoners.findIndex(
-        (Itemname) => Itemname.index === index
-      );
-      valueOfIndex !== -1
-        ? this.selectedBewoners.splice(valueOfIndex, 1)
-        : this.selectedBewoners.push({
-            index: index,
-            name: val.source.value,
-            isSelected: true,
-          });
+    if (this.id != null) {
+      this.getPersoon(this.id);
     }
   }
-  push(val, index, position, itemName: MatOption) {
-    let inm = this.selectedBewoners.filter((item) => {
-      return item.index === position;
-    });
-    inm.length
-      ? ''
-      : this.selectedBewoners.push({
-          index: position,
-          name: itemName.value,
-          isSelected: true,
-        });
-  }
-  /*
-  getPersoneel(id: number){
+  getPersoon(id: string) {
     this._personeelDataService.getPersoneel$(id).subscribe(
-      (personeel : Personeel) => {
-        this.editPersoneel(personeel)
-        this.editPersObj = personeel;
-      }, (err: any) => console.log(err)
+      (data) => {
+        this.persoonOnEdit = data;
+        this.fillEditForm(this.persoonOnEdit);
+        console.log(data);
+      },
+      (error) => {
+        console.log(error);
+      }
     );
+ 
   }
 
-  editPersoneel(personeel : Personeel){
+  fillEditForm(personeel: Personeel) {
     let dp = new DatePipe(navigator.language);
     let p = 'y-MM-dd'; // YYYY-MM-DD
     let dtr = dp.transform(personeel.geboorteDatum, p);
     let dtr2 = dp.transform(personeel.datumInDienst, p);
-        this.personeelFG.patchValue({
-          name: personeel.name,
-          functie: personeel.functie,
-          email: personeel.email,
-          telefoonNummer: personeel.telefoonNummer,
-          geboorteDatum: dtr,
-          datumInDienst: dtr2,
-          adres: {
-            postcode:  personeel.postcode,
-            huisnummer: personeel.huisnummer,
-             straat: personeel.straat,
-             land: personeel.land,
-          }
-      
+    this.personeelFG.patchValue({
+      name: personeel.name,
+      functie: personeel.functie,
+      email: personeel.email,
+      telefoonNummer: personeel.telefoonNummer,
+      geboorteDatum: dtr,
+      datumInDienst: dtr2,
+      adres: {
+        postcode: personeel.postcode,
+        huisnummer: personeel.huisnummer,
+        straat: personeel.straat,
+        land: personeel.land,
+      },
     });
     console.log(personeel.postcode);
     console.log(personeel.huisnummer);
   }
-  mapFormValuesToPersoneelModel(){
-  this.editPersObj.name =  this.personeelFG.value.name; 
-  this.editPersObj.functie =  this.personeelFG.value.functie;
-  this.editPersObj.email =  this.personeelFG.value.email;
-  this.editPersObj.telefoonNummer =  this.personeelFG.value.telefoonNummer;
-  this.editPersObj.geboorteDatum =  this.personeelFG.value.geboorteDatum;
-  this.editPersObj.datumInDienst =  this.personeelFG.value.datumInDienst;
-  this.editPersObj.postcode =  this.personeelFG.value.postcode;
-  this.editPersObj.huisnummer =  this.personeelFG.value.huisnummer;
-  this.editPersObj.straat =  this.personeelFG.value.straat;
-  this.editPersObj.land =  this.personeelFG.value.land;
+  mapFormValuesToPersoneelModel() {
+    this.persoonOnEdit.name = this.personeelFG.value.name;
+    this.persoonOnEdit.functie = this.personeelFG.value.functie;
+    this.persoonOnEdit.email = this.personeelFG.value.email;
+    this.persoonOnEdit.telefoonNummer = this.personeelFG.value.telefoonNummer;
+    this.persoonOnEdit.geboorteDatum = this.personeelFG.value.geboorteDatum;
+    this.persoonOnEdit.datumInDienst = this.personeelFG.value.datumInDienst;
+    this.persoonOnEdit.postcode = this.personeelFG.value.postcode;
+    this.persoonOnEdit.huisnummer = this.personeelFG.value.huisnummer;
+    this.persoonOnEdit.straat = this.personeelFG.value.straat;
+    this.persoonOnEdit.land = this.personeelFG.value.land;
   }
-  */
 
-  public getBewoners() {
-    this._bewonerDataService.bewoners$().subscribe((result) => {
-      this.BewonersList = result;
-    });
-  //  this.selectedBewoners.push(this.BewonersList[0]);
-  }
-  clickedOption() {
-    console.log(this.selectedBewoners);
-  }
-  onSubmit() {
-    /* this.mapFormValuesToPersoneelModel();
-    this._personeelDataService.editPersoneel(this.editPersObj).subscribe(
-() =>this.router.navigate(['/personeel/list']),
-(err: any) => console.log(err)
-    );
-    */
+
+  createPersoon() {
+    console.log(this.bewoners);
     const personeel = new Personeel(
-      this.personeelFG.value.id,
       this.personeelFG.value.name,
       this.personeelFG.value.name,
       this.personeelFG.value.geboorteDatum,
@@ -173,13 +136,14 @@ export class AddPersoneelComponent implements OnInit {
       this.personeelFG.value.adres.straat,
       this.personeelFG.value.adres.huisnummer,
       this.personeelFG.value.adres.land,
-      this.selectedBewoners
+      this.bewoners
     );
     this._personeelDataService
       .addNewPersoneel(personeel)
       .pipe(
         catchError((err) => {
           this.errorMessage = err;
+  
           return EMPTY;
         })
       )
@@ -187,9 +151,32 @@ export class AddPersoneelComponent implements OnInit {
         this.notificationService.success(
           `::  ${persoon.name} was succesfully added`
         );
+        this.router.navigate(['/personeel/list']);
       });
-    this.router.navigate(['/personeel/list']);
-    return false;
+  }
+  /* editPersoon() {
+    if (this.persoonOnEdit != null) {
+      this.mapFormValuesToPersoneelModel();
+      console.log(this.persoonOnEdit);
+      this._personeelDataService.editPersoneel(this.persoonOnEdit).subscribe(
+        () => this.router.navigate(['/personeel/list']),
+        (err: any) =>{
+          console.log(err);
+    
+        } 
+      );
+    }
+  } */ 
+  onSubmit() {
+    this.submitted = true;
+    if (this.personeelFG.invalid) {
+      return;
+    }
+    if (this.isAddMode) {
+      this.createPersoon();
+    } /* else {
+      this.editPersoon();
+    } */
   }
   addNewPersoneel(personeel: Personeel) {
     console.log(personeel);

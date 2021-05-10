@@ -12,9 +12,7 @@ import {Bewoner} from './bewoner.model'
 export class BewonerDataServiceService {
   private _bewoners$ = new BehaviorSubject<Bewoner[]>([]);
   private _bewoner: Bewoner[];
-  constructor(private http: HttpClient){
-    
-  }
+  constructor(private http: HttpClient){}
   get allBewoners$(): Observable<Bewoner[]> {
     return this._bewoners$;
   }

@@ -54,7 +54,7 @@ export class PersoneelDataService {
       switchMap(() => this.fetchPersonen$(name, functie))
     );
   }
-  getPersoneel$(id: string): Observable<Personeel> {
+   getPersoneel$(id: string): Observable<Personeel> {
     return this.http
       .get(`${environment.apiUrl}/Personeel/${id}`)
       .pipe(catchError(this.handleError), map(Personeel.fromJSON)); // returns just one personeel, as json
