@@ -7,11 +7,7 @@ interface PersoneelJson {
     datumInDienst : Date;
      email: string;
      telefoonNummer: string;
-     postcode : string,
-     straat: string,
-     huisnummer: string,
-     land: string,
-     bewoners: BewonerJson[]
+     bewoners: BewonerJson[];
   }
 export class Personeel {
   private _id: number; 
@@ -22,10 +18,6 @@ export class Personeel {
         private _datumIndienst :Date,
         private _email: string,
         private _telefoonNummer: string,
-        private  _postcode: string,
-        private _straat: string,
-        private _huisnummer: string,
-        private _land: string,
         private _bewoners = new Array<Bewoner>()
       ) {}
       static fromJSON(json: PersoneelJson): Personeel {
@@ -36,10 +28,6 @@ export class Personeel {
           json.datumInDienst,
           json.email,
           json.telefoonNummer,
-          json.postcode,
-          json.straat,
-          json.huisnummer,
-          json.land,
           json.bewoners.map(Bewoner.fromJSON)
         );
         pers._id = json.id;
@@ -54,10 +42,6 @@ export class Personeel {
           datumInDienst: this.datumInDienst,
           email: this.email,
           telefoonNummer: this.telefoonNummer,
-          postcode: this.postcode,
-          straat: this.straat,
-          huisnummer: this.huisnummer,
-          land:  this.land,
           bewoners: this.bewoners.map(bewoner => bewoner.toJSON())
         };
       }
@@ -89,26 +73,11 @@ export class Personeel {
         return this._telefoonNummer;
       }
       set telefoonNummer(telefoonNummer : string){this._telefoonNummer = telefoonNummer;}
-      get postcode(): string{
-        return this._postcode;
-      }
-      set postcode(postcode : string){this._postcode = postcode;}
-      get straat(): string{
-        return this._straat;
-      }
-      set straat(straat : string){this._straat = straat;}
-      get huisnummer(): string{
-        return this._huisnummer;
-      }
-      set huisnummer(huisnummer : string){this._huisnummer = huisnummer;}
-      get land(): string{
-        return this._land;
-      }
-      set land(land : string){this._land = land;}
+   
       get bewoners(): Bewoner[] {
         return this._bewoners;
       }
-      addBewoner(name: string, geboorteDatum: Date, eetOpKamer: Boolean, wordtGehaald: boolean) {
-        this._bewoners.push(new Bewoner(name, geboorteDatum, eetOpKamer, wordtGehaald));
+      addBewoner(bewoner: Bewoner) {
+        this._bewoners.push(bewoner);
       }
 }

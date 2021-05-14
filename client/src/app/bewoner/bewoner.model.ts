@@ -25,6 +25,7 @@ export class Bewoner {
           json.wordtGehaald,
           //json.personeel,
         );
+        bewoner._id = json.id;
         return bewoner;
       }
       toJSON(): BewonerJson{

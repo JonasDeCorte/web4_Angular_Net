@@ -40,16 +40,12 @@ export class PersoneelComponent implements OnInit {
       })
       
   }
-  onEdit(){
-    const persId = this.personeel ? this.personeel.id : null;
-    this.router.navigate([`/personeel/edit/${persId}`]);
-  }
   onFileChanged(event) {
     this.fileToUpload = event.target.files[0];
     const persId = this.personeel ? this.personeel.id : null;
     this.onUpload(persId);
     console.log("Succes image uploaded");
-    this.refreshPage();
+   this.refreshPage();
 
   }
   private onUpload(persoonId: number)

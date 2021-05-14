@@ -110,21 +110,20 @@ export class PersoneelDataService {
   });console.log("Succes image uploaded");
  }
  */
-  editPersoneel(personeel: Personeel) {
-    return this.http
-      .put(
-        `${environment.apiUrl}/Personeel/${personeel.id}`,
-        personeel.toJSON()
-      )
-      .pipe(catchError(this.handleError), map(Personeel.fromJSON))
-      .pipe(
-        catchError((err) => {
-          return throwError(err);
-        }),
-        tap((pers: Personeel) => {
-          this._reloadPersoneel$.next(true);
-        })
-      );
+ 
+ editPersoneel(personeel: Personeel) {
+    console.log(personeel.toJSON());
+    return  this.http
+    .put(`${environment.apiUrl}/Personeel/${personeel.id}`, personeel.toJSON())
+    .pipe(catchError(this.handleError), map(Personeel.fromJSON))
+    .pipe(
+      catchError((err) => {
+        return throwError(err);
+      }),
+      tap((pers: Personeel) => {
+        this._reloadPersoneel$.next(true);
+      })
+    ); 
   }
   handleError(err: any): Observable<never> {
     let errorMessage: string;

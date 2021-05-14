@@ -1,5 +1,4 @@
-<h1 *ngIf="isAddMode">Add User</h1>
-<h1 *ngIf="!isAddMode">Edit User {{persoonOnEdit.name}}</h1>
+<h1>Voeg een werknemer toe</h1>
 <mat-card class="center">
   <form [formGroup]="personeelFG" (ngSubmit)="onSubmit()">
     <div class="form-row">
@@ -129,57 +128,6 @@
           {{ getErrorMessage(personeelFG.get("datumInDienst")["errors"]) }}
         </mat-error>
       </mat-form-field>
-    </div>
-
-    <div formArrayName="adres">
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Straat</mat-label>
-          <input
-            matInput
-            type="text"
-            placeholder="Straat"
-            aria-label="Straat"
-            formControlName="straat"
-          />
-          <mat-icon matSuffix>add_location</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>PostCode</mat-label>
-          <input
-            matInput
-            type="text"
-            aria-label="PostCode"
-            placeholder="PostCode"
-            formControlName="postcode"
-          />
-          <mat-icon matSuffix>edit_location_alt</mat-icon>
-        </mat-form-field>
-      </div>
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>HuisNummer</mat-label>
-          <input
-            matInput
-            placeholder="HuisNummer"
-            aria-label="huisnummer"
-            type="text"
-            formControlName="huisnummer"
-          />
-          <mat-icon matSuffix>place</mat-icon>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Land</mat-label>
-          <input
-            matInput
-            placeholder="Land"
-            aria-label="land"
-            type="text"
-            formControlName="land"
-          />
-          <mat-icon matSuffix>not_listed_location</mat-icon>
-        </mat-form-field>
-      </div>
     </div>
     <button type="submit" mat-raised-button [disabled]="!personeelFG.valid">
       Save
