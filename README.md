@@ -34,21 +34,4 @@ dotnet watch run
 
 ---
 
-## Getting started -  Production
 
-### Client
-
-```
-cd Client
-npm install
-ng build --prod
-```
-
-### Server
-
-```
-cd 2021-karine-JonasDeCorte/RestApi/RestApi
-dotnet run
-```
-
-## 
