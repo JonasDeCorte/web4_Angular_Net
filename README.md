@@ -34,4 +34,10 @@ dotnet watch run
 
 ---
 
+### Login 
 
+```
+email: master@hogent.be
+wachtwoord: P@ssword1111
+
+```
