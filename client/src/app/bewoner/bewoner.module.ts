@@ -10,15 +10,15 @@ import { BewonerFormDialogComponent } from './bewoner-form-dialog/bewoner-form-d
 
 const Routes = [
   {
-    path: 'bewoner/list', 
-    component: BewonerComponent
+    path: 'bewoner/list',
+    component: BewonerComponent,
   },
   {
-    path: 'bewoner/list/:id', 
-    component: BewonerComponent, resolve: {bewoner: BewonerResolverService}
+    path: 'bewoner/list/:id',
+    component: BewonerComponent,
+    resolve: { bewoner: BewonerResolverService },
   },
-]
-
+];
 
 @NgModule({
   declarations: [ConfirmationDialogComponent, BewonerFormDialogComponent],
@@ -26,9 +26,9 @@ const Routes = [
     CommonModule,
     MaterialModule,
     HttpClientModule,
-    RouterModule.forChild(Routes)
+    RouterModule.forChild(Routes),
   ],
   entryComponents: [ConfirmationDialogComponent],
-  providers: [HttpClientModule]
+  providers: [HttpClientModule],
 })
-export class BewonerModule { }
+export class BewonerModule {}

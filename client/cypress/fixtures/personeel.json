@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "name": "2test",
+    "functie": "Keuken",
+    "geboorteDatum": "2021-05-14T16:31:11.1943997",
+    "datumInDienst": "2021-05-14T16:31:11.1944028",
+    "email": "2test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 2,
+    "name": "1test",
+    "functie": "Zaal",
+    "geboorteDatum": "2021-05-14T16:31:11.1940865",
+    "datumInDienst": "2021-05-14T16:31:11.1943241",
+    "email": "1test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 3,
+    "name": "3test",
+    "functie": "Zaal",
+    "geboorteDatum": "2021-05-14T16:31:11.1944048",
+    "datumInDienst": "2021-05-14T16:31:11.1944051",
+    "email": "3test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 4,
+    "name": "4test",
+    "functie": "Keuken",
+    "geboorteDatum": "2021-05-14T16:31:11.1944057",
+    "datumInDienst": "2021-05-14T16:31:11.1944059",
+    "email": "4test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 5,
+    "name": "5test",
+    "functie": "Zaal",
+    "geboorteDatum": "2021-05-14T16:31:11.1944065",
+    "datumInDienst": "2021-05-14T16:31:11.1944068",
+    "email": "5test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 6,
+    "name": "6test",
+    "functie": "Keuken",
+    "geboorteDatum": "2021-05-14T16:31:11.1944077",
+    "datumInDienst": "2021-05-14T16:31:11.194408",
+    "email": "6test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 7,
+    "name": "7test",
+    "functie": "Zaal",
+    "geboorteDatum": "2021-05-14T16:31:11.1944086",
+    "datumInDienst": "2021-05-14T16:31:11.1944088",
+    "email": "7test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 8,
+    "name": "8test",
+    "functie": "Keuken",
+    "geboorteDatum": "2021-05-14T16:31:11.1944096",
+    "datumInDienst": "2021-05-14T16:31:11.1944099",
+    "email": "8test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  },
+  {
+    "id": 9,
+    "name": "9test",
+    "functie": "Zaal",
+    "geboorteDatum": "2021-05-14T16:31:11.1944104",
+    "datumInDienst": "2021-05-14T16:31:11.1944107",
+    "email": "9test@Hogent.be",
+    "bewoners": [],
+    "image": null
+  }
+]

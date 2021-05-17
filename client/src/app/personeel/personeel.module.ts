@@ -10,29 +10,25 @@ import { RouterModule, Routes } from '@angular/router';
 import { MaterialModule } from 'app/material/material.module';
 import { BewonerComponent } from 'app/bewoner/bewoner.component';
 
-
-const routes: Routes =  [
+const routes: Routes = [
   { path: 'list', component: PersoneelLijstComponent },
   { path: 'add', component: AddPersoneelComponent },
-  { 
-    path: 'edit/:id', 
-  component: AddPersoneelComponent,
-   resolve: {personeel: PersoneelResolver} 
-  },
-] ;
+];
 
 @NgModule({
-  declarations: [PersoneelComponent, 
-    PersoneelLijstComponent, 
-    AddPersoneelComponent, 
-    PersoneelFilterPipe, 
-    BewonerComponent
-    ],
+  declarations: [
+    PersoneelComponent,
+    PersoneelLijstComponent,
+    AddPersoneelComponent,
+    PersoneelFilterPipe,
+    BewonerComponent,
+  ],
   imports: [
-    CommonModule, ReactiveFormsModule, RouterModule.forChild(routes), MaterialModule,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    MaterialModule,
   ],
   exports: [PersoneelLijstComponent, AddPersoneelComponent],
- // entryComponents: [AddPersoneelComponent],
- // providers: [PersoneelDataService]
 })
-export class PersoneelModule { }
+export class PersoneelModule {}

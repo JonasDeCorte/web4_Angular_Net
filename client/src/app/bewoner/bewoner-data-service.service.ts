@@ -1,10 +1,11 @@
-import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
 import { filter } from 'lodash';
 import { pipe } from 'rxjs';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { BewonerResolverService } from './bewoner-resolver.service';
 import {Bewoner} from './bewoner.model'
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,11 @@ export class BewonerDataServiceService {
   dialogData: any;
   private _bewoners$ = new BehaviorSubject<Bewoner[]>([]);
   private _bewoners: Bewoner[];
+  
   constructor(private http: HttpClient){
     this.bewoners$
       .pipe(
         catchError((err) => {
-          // temporary fix, while we use the behaviorsubject as a cache stream
           this._bewoners$.error(err);
           return throwError(err);
         })
@@ -54,7 +55,7 @@ export class BewonerDataServiceService {
       map((list: any[]): Bewoner[] => list.map(Bewoner.fromJSON))
     );
   }
-  getBewoner$(id: string): Observable<Bewoner> {
+  getBewoner$(id: number): Observable<Bewoner> {
     return this.http
       .get(`${environment.apiUrl}/Bewoner/${id}`)
       .pipe(catchError(this.handleError), map(Bewoner.fromJSON)); // returns just one bewoner, as json
@@ -68,20 +69,18 @@ export class BewonerDataServiceService {
         this._bewoners$.next(this._bewoners);
       });
   }
-  edit(bewoner: Bewoner) {
-    return  this.http
-    .put(`${environment.apiUrl}/Bewoner/${bewoner.id}`, bewoner.toJSON)
-    .pipe(catchError(this.handleError), map(Bewoner.fromJSON))
-    .pipe(
+  
+   /** PUT: update the bewoner on the server */
+   edit(bewoner: Bewoner): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json'})
+    }
+    return this.http.put(`${environment.apiUrl}/Bewoner/${bewoner.id}`, bewoner, httpOptions).pipe(
+      tap(_ => console.log(`updated hero id=${bewoner.id}`)),
       catchError((err) => {
         return throwError(err);
       }),
-      tap((pers: Bewoner) => {
-        console.log(pers);
-        this._bewoners = this._bewoners.filter((bew) => bew.id != bewoner.id);
-        this._bewoners$.next(this._bewoners);
-      })
-    ); 
+    );
   }
   handleError(err: any): Observable<never> {
     let errorMessage: string;

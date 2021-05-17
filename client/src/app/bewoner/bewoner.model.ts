@@ -30,6 +30,7 @@ export class Bewoner {
       }
       toJSON(): BewonerJson{
         return <BewonerJson>{
+          id : this._id,
           name: this._name,
           geboorteDatum: this._geboorteDatum,
           eetOpKamer: this._eetOpKamer,

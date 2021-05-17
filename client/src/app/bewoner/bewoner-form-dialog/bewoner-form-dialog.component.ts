@@ -2,6 +2,7 @@ import { Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { BewonerDataServiceService } from '../bewoner-data-service.service';
 import { Bewoner } from '../bewoner.model';
 
@@ -12,7 +13,9 @@ import { Bewoner } from '../bewoner.model';
 })
 export class BewonerFormDialogComponent implements OnInit {
   formInstance: FormGroup;
-  constructor(public dialogRef: MatDialogRef<BewonerFormDialogComponent>,
+
+
+  constructor(private route: ActivatedRoute,public dialogRef: MatDialogRef<BewonerFormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public dataService: BewonerDataServiceService) { }
   
     formControl = new FormControl('', [
@@ -27,14 +30,15 @@ export class BewonerFormDialogComponent implements OnInit {
    onNoClick(): void {
     this.dialogRef.close();
   }
-
+ 
   stopEdit(): void {
-    this.dataService.edit(this.data);
+     this.dataService.edit(this.data).subscribe(() => console.log(this.data));
   }
 
   submit() {
     // emppty stuff
   }
+
   ngOnInit(): void {
   }
 

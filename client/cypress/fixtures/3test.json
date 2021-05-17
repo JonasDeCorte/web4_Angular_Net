@@ -1,0 +1,12 @@
+[
+    {
+        "id": 3,
+        "name": "3test",
+        "functie": "Zaal",
+        "geboorteDatum": "2021-05-14T16:31:11.1944048",
+        "datumInDienst": "2021-05-14T16:31:11.1944051",
+        "email": "3test@Hogent.be",
+        "bewoners": [],
+        "image": null
+      }
+]

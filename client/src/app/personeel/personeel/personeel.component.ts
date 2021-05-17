@@ -45,7 +45,8 @@ export class PersoneelComponent implements OnInit {
     const persId = this.personeel ? this.personeel.id : null;
     this.onUpload(persId);
     console.log("Succes image uploaded");
-   this.refreshPage();
+    this.refreshPage();
+  
 
   }
   private onUpload(persoonId: number)

@@ -57,7 +57,7 @@ function serverSideValidateUsername(
 })
 export class RegisterComponent implements OnInit {
   public errorMessage: string = '';
-  public registerForm: FormGroup;
+  public user: FormGroup;
   constructor(
     private authService: AuthenticationService,
     private router: Router,
@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
+    this.user = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: [
@@ -92,23 +92,15 @@ export class RegisterComponent implements OnInit {
       ),
     });
   }
-
  
-
   onSubmit() {
     this.authService
       .register(
-        this.registerForm.value.firstname,
-        this.registerForm.value.lastname,
-        this.registerForm.value.email,
-        this.registerForm.value.passwordGroup.password
-      ).pipe(
-        catchError(err =>
-          {
-            
-            this.errorMessage = err;
-            return EMPTY;
-          }))
+        this.user.value.firstname,
+        this.user.value.lastname,
+        this.user.value.email,
+        this.user.value.passwordGroup.password
+      )
       .subscribe(
         (val) => {
           if (val) {
@@ -118,20 +110,18 @@ export class RegisterComponent implements OnInit {
             } else {
               this.notificationService.success(':: registered succesfully'); 
               this.router.navigate(['/personeel/list']);
-              
             }
           } else {
+            this.errorMessage = `Could not login`;
             this.notificationService.warn(':: something went wrong.'); 
-            this.errorMessage = `Could not register`;
-            
           }
         },
         (err: HttpErrorResponse) => {
           console.log(err);
           if (err.error instanceof Error) {
-            this.errorMessage = `Error while trying to login user ${this.registerForm.value.email}: ${err.error.message}`;
+            this.errorMessage = `Error while trying to login user ${this.user.value.email}: ${err.error.message}`;
           } else {
-            this.errorMessage = `Error ${err.status} while trying to login user ${this.registerForm.value.email}: ${err.error}`;
+            this.errorMessage = `Error ${err.status} while trying to login user ${this.user.value.email}: ${err.error}`;
           }
         }
       );

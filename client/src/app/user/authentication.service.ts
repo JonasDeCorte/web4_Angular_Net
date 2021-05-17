@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'environments/environment';
 
 function parseJwt(token) {
@@ -20,7 +20,6 @@ export class AuthenticationService {
   private readonly _tokenKey = 'currentUser';
   private _user$: BehaviorSubject<string>;
   public redirectUrl: string = null;
-  public errorString: string;
 
   constructor(private http: HttpClient) {
     let parsedToken = parseJwt(localStorage.getItem(this._tokenKey));
@@ -53,7 +52,7 @@ export class AuthenticationService {
         { email, password },
         { responseType: 'text' }
       )
-      .pipe( catchError(this.handleError),
+      .pipe(
         map((token: any) => {
           if (token) {
             localStorage.setItem(this._tokenKey, token);
@@ -112,13 +111,4 @@ export class AuthenticationService {
       }
     );
   };
-  private handleError(error: any): Observable<never>
-  {
-    if (error instanceof HttpErrorResponse)
-    {
-      
-      this.errorString = error.message;
-    }
-    return throwError(error.error);
-  }
 }

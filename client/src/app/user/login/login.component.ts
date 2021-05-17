@@ -10,6 +10,7 @@ import {
 import { NotificationServiceService } from 'app/notification-service.service';
 import { catchError } from 'rxjs/operators';
 import { EMPTY } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 function comparePasswords(control: AbstractControl): { [key: string]: any } {
   const password = control.get('password');
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required]
     })
   }
+  /*
   onSubmit()
   {
     this.authService.login(
@@ -53,19 +55,44 @@ export class LoginComponent implements OnInit {
           })
       ).subscribe(val =>
         {
-          
-            if (val) {
-              if (this.authService.redirectUrl) {
-                this.router.navigateByUrl(this.authService.redirectUrl);
-                this.authService.redirectUrl = undefined;
-              } else {           
-                this.notificationService.success(':: logged in succesfully'); 
-                this.router.navigateByUrl('/personeel/list');
-              }
-            } else {
-              
-            }
-        this.errorString = this.authService.errorString;
+          if (val) {
+            this.router.navigate(['/personeel/list']);
+            this.notificationService.success(':: logged in succesfully'); 
+            
+          } else {
+            this.errorMessage = `Could not login`;
+          }
+  
         });
+  }
+  */
+  onSubmit() {
+    this.authService.login(
+      this.logInForm.value.email,
+      this.logInForm.value.password
+      )
+      .subscribe(
+        (val) => {
+          if (val) {
+            if (this.authService.redirectUrl) {
+              this.router.navigateByUrl(this.authService.redirectUrl);
+              this.authService.redirectUrl = undefined;
+            } else {
+              this.router.navigate(['/personeel/list']);
+              this.notificationService.success(':: logged in succesfully'); 
+            }
+          } else {
+            this.errorMessage = `Could not login`;
+          }
+        },
+        (err: HttpErrorResponse) => {
+          console.log(err);
+          if (err.error instanceof Error) {
+            this.errorMessage = `Error while trying to login user ${this.logInForm.value.username}: ${err.error.message}`;
+          } else {
+            this.errorMessage = `Error ${err.status} while trying to login user ${this.logInForm.value.username}: ${err.error}`;
+          }
+        }
+      );
   }
 }

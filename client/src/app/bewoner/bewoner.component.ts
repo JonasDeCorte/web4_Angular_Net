@@ -28,10 +28,12 @@ bewoners : Bewoner[] = [];
   this.getBewoners();
   this.dataSource.paginator = this.paginator;
   this.dataSource.sort = this.sort;
+  
   }
   public getBewoners(){
     this.bewonerService.bewoners$.subscribe((data) => this.dataSource.data = data);
     console.log(this.dataSource);
+    
   }
   onRowClicked(row: Bewoner) {
     console.log('Row clicked: ', row);
@@ -59,6 +61,7 @@ delete(row : Bewoner) {
       this.bewonerService.deleteBewoner(row.id);
     }
   });
+ 
 }
 
 edit(row : Bewoner){

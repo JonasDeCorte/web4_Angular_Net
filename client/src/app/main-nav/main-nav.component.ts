@@ -30,6 +30,7 @@ export class MainNavComponent {
       this._authenticationService.logout();
     }
     login() {
+      console.log('login');
       this._router.navigateByUrl('/login');
     
     }
