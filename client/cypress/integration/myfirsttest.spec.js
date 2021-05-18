@@ -1,6 +1,9 @@
 const { Button } = require("selenium-webdriver");
 
 describe('My First Test', function() {
+  beforeEach(function () {
+    cy.login();
+  });
     it('our app runs', function() {
       cy.visit('http://localhost:4200');
       cy.get('[data-cy=filterInput]').type('');
@@ -31,16 +34,3 @@ describe('My First Test', function() {
     cy.get('[data-cy=appError]').should('be.visible');
   });
 
-  describe('The Login Page', () => {
-    it('logging in  ', function () {
-      cy.visit('/login')
-  
-      cy.get('input[data-cy=username]').type('master@hogent.be').should('have.value', 'master@hogent.be')
-  
-      cy.get('input[data-cy=password]').type(`P@ssword1111`).should('have.value', `P@ssword1111`)
-      cy.get('Button[data-cy=loginform]').submit().next().should('contain', 'Your form has been submitted!')
-      
-      // we should be redirected to /dashboard
-      cy.url().should('include', '/Personeel/list')
-    })
-  })

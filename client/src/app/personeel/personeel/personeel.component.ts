@@ -43,6 +43,7 @@ export class PersoneelComponent implements OnInit {
   onFileChanged(event) {
     this.fileToUpload = event.target.files[0];
     const persId = this.personeel ? this.personeel.id : null;
+    console.log(persId);
     this.onUpload(persId);
     console.log("Succes image uploaded");
 

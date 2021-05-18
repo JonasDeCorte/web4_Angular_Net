@@ -1,3 +1,4 @@
+import { ReactiveFormsModule } from "@angular/forms";
 import { Bewoner, BewonerJson } from "app/bewoner/bewoner.model";
 interface PersoneelJson {
     id: number;
@@ -21,17 +22,31 @@ export class Personeel {
         private _bewoners = new Array<Bewoner>()
       ) {}
       static fromJSON(json: PersoneelJson): Personeel {
-        const pers = new Personeel(
+        if(json.bewoners == null){
+            const pers = new Personeel(
           json.name,
           json.functie,
           json.geboorteDatum,
           json.datumInDienst,
           json.email,
           json.telefoonNummer,
-          json.bewoners.map(Bewoner.fromJSON)
-        );
-        pers._id = json.id;
+         new Array<Bewoner>()
+        ); 
+         pers._id = json.id;
+         return pers;    
+        } else{
+          const pers = new Personeel(
+            json.name,
+            json.functie,
+            json.geboorteDatum,
+            json.datumInDienst,
+            json.email,
+            json.telefoonNummer,
+            json.bewoners.map(Bewoner.fromJSON)
+          );
+          pers._id = json.id;
         return pers;
+        }   
       }
       toJSON(): PersoneelJson{
        // id: this.id,

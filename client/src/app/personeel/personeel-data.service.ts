@@ -5,7 +5,6 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BewonerResolverService } from 'app/bewoner/bewoner-resolver.service';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { throwError } from 'rxjs';
@@ -21,6 +20,7 @@ export class PersoneelDataService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
   constructor(private http: HttpClient) {}
+
   get personen$(): Observable<Personeel[]> {
     return this.http.get(`${environment.apiUrl}/Personeel/`).pipe(
       tap(console.log),
@@ -33,11 +33,13 @@ export class PersoneelDataService {
     let params = new HttpParams();
     params = name ? params.append('name', name) : params;
     params = functie ? params.append('functie', functie) : params;
-    return this.http.get(`${environment.apiUrl}/Personeel/`, { params }).pipe(
+    return this.http.get(`${environment.apiUrl}/Personeel/`, { params }).pipe(tap(console.log),
+    shareReplay(1),
       catchError(this.handleError),
       map((list: any[]): Personeel[] => list.map(Personeel.fromJSON))
     );
   }
+  
   getPersonen$(name?: string, functie?: string) {
     return this._reloadPersoneel$.pipe(
       switchMap(() => this.fetchPersonen$(name, functie))
@@ -67,7 +69,7 @@ export class PersoneelDataService {
 
     return this.http
       .post(`${environment.apiUrl}/Personeel/addImage/${persoonId}`, formData)
-      .pipe(map((a: any): string => a));
+      .pipe(map((a: any): string => a));      
   }
   public getImage(id: number): Observable<any[]> {
     return this.http.get(`${environment.apiUrl}/Personeel/getImage/${id}`).pipe(

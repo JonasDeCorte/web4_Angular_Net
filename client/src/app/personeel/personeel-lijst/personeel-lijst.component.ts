@@ -17,38 +17,40 @@ import { Personeel } from '../personeel/personeel.model';
 })
 export class PersoneelLijstComponent implements OnInit {
   public filterPersoneelName: string = '';
-  //public personen: Personeel[];
+ // public personen: Personeel[];
   public filterPersoneel$ = new Subject<string>();
   private _fetchPersoneel$: Observable<Personeel[]> 
   public errorMessage: string = '';
   
-  constructor(private _personeelDataService: PersoneelDataService, private dialog: MatDialog, private _router: Router,
-    private _route: ActivatedRoute) {
-      
-      this.filterPersoneel$
-      .pipe(
-        distinctUntilChanged(),
-        debounceTime(400)
-      )
-      .subscribe(val => {
-        const params = val ? { queryParams: { filter: val } } : undefined;
-        this._router.navigate(['/personeel/list'], params);
-      });
-
-     this._fetchPersoneel$ = this._route.queryParams.pipe(
-        switchMap(params => {
-          if (params['filter']) {
-            this.filterPersoneelName = params['filter'];
-          }
-            return this._personeelDataService.getPersonen$(params['filter']);
-          })
-        ).pipe(
+       constructor(private _personeelDataService: PersoneelDataService, private _router: Router,
+        private _route: ActivatedRoute) {
+        this.filterPersoneel$
+          .pipe(distinctUntilChanged(), debounceTime(250))
+          .subscribe((val) => {
+            const params = val ? { queryParams: { filter: val } } : undefined;
+            this._router.navigate(['/personeel/list'], params);
+          });
+    
+        this._fetchPersoneel$ = this._route.queryParams
+          .pipe(
+            switchMap((newParams) => {
+              // set the value of the input field with the url parameter as well
+              if (newParams['filter']) {
+                this.filterPersoneelName= newParams['filter'];
+              }
+              // when the queryparameter changes, take the filter parameter and use it to ask
+              // the service for all personen with this filter in their name
+              // this._recipeDataService.getRecipes$(params['filter']).subscribe(
+              return this._personeelDataService.getPersonen$(newParams['filter']);
+            })
+          )
+          .pipe(
             catchError((err) => {
               this.errorMessage = err;
               return EMPTY;
             })
-          )    
-      };
+          );
+      }
     
    
  get personen$(): Observable<Personeel[]> {
@@ -56,15 +58,9 @@ export class PersoneelLijstComponent implements OnInit {
  }
  
   ngOnInit(): void {  }
+
   applyFilter(filter: string) {
     this.filterPersoneelName = filter;
-}
-onCreate(){
-  const dialogConfig = new MatDialogConfig();
-  dialogConfig.disableClose = false;
-  dialogConfig.autoFocus = true;
-  dialogConfig.width = "60%";
-this.dialog.open(AddPersoneelComponent, dialogConfig);
-}
+  }
 
 }

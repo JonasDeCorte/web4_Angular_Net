@@ -28,10 +28,10 @@ describe('personeel List tests', function () {
       cy.visit('/');
       cy.get('[data-cy=filterInput]').type('2test');
       cy.wait(300);
-      cy.get('[data-cy=filterInput]').type('{backspace}{backspace}3Test');
+      cy.get('[data-cy=filterInput]').type('{backspace}{backspace}{backspace}{backspace}{backspace}3Test');
       cy.wait(['@get2TestPersoneel', '@get3TestPersoneel']);
       cy.get('[data-cy=personeelCard]').should('have.length', 1);
-      cy.get('[data-cy=personeel-title]').should('contain', '2Test');
+      cy.get('[data-cy=personeel-title]').should('contain', '3Test');
     });
   
     it('delete while showing', () => {
