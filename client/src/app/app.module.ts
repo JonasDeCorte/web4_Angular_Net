@@ -24,14 +24,13 @@ import { httpInterceptorProviders } from './interceptors';
     HttpClientModule,
     MaterialModule,
     UserModule,
-
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    BewonerModule,
+   BewonerModule,
     AppRoutingModule,
   ],
 

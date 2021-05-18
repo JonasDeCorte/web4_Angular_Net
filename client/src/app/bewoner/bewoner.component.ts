@@ -58,6 +58,9 @@ export class BewonerComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  refreshPage() {
+    window.location.reload();
+  }
   delete(row: Bewoner) {
     console.log(row.id);
     const dialogRef = this.dialog.open(ConfirmationDialogComponent);
@@ -65,6 +68,7 @@ export class BewonerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.bewonerService.deleteBewoner(row.id);
+        this.refreshPage();
       }
     });
   }

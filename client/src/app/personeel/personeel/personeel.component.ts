@@ -56,7 +56,7 @@ export class PersoneelComponent implements OnInit {
     window.location.reload();
   }
   deletePersoon() {
-    this.notificationService.warn(`${this.personeel} was succesfully deleted`);
+    this.notificationService.warn(`${this.personeel.name} was succesfully deleted`);
     this.personeelDataService.deletePersoon(this.personeel);
   }
 }

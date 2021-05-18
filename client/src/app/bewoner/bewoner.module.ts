@@ -12,12 +12,7 @@ const Routes = [
   {
     path: 'bewoner/list',
     component: BewonerComponent,
-  },
-  {
-    path: 'bewoner/list/:id',
-    component: BewonerComponent,
-    resolve: { bewoner: BewonerResolverService },
-  },
+  }
 ];
 
 @NgModule({
