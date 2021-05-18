@@ -16,7 +16,7 @@
       <p class="imageAlt" *ngIf="image == null">no image provided</p>
       <img *ngIf="image != null" mat-card-image [src]="image" alt="Employee image">
       <div *ngIf="image == null">
-        <button type="file" mat-button accept="image/*" (click)="fileInput.click()">Select File</button>
+        <button data-cy="image" type="file" mat-button accept="image/*" (click)="fileInput.click()">Select File</button>
       </div>
     </div>
     <div>
@@ -26,8 +26,8 @@
     </div>
     
   </mat-card-content>
-  <mat-card-actions class="center">
-    <button (click)="deletePersoon()">
+  <mat-card-actions data-cy="parent"  class="center">
+    <button data-cy="delete" (click)="deletePersoon()">
       <mat-icon>delete_forever</mat-icon>
     </button>
     <input

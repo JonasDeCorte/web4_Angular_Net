@@ -12,6 +12,7 @@
           #newPersoneelname
           required
           formControlName="name"
+          data-cy="naam"
         />
         <mat-icon matSuffix>person</mat-icon>
         <mat-error
@@ -31,6 +32,7 @@
           aria-label="Functie"
           required
           formControlName="functie"
+          data-cy="functie"
         />
         <mat-icon matSuffix>construction</mat-icon>
         <mat-error
@@ -53,6 +55,7 @@
           aria-label="email"
           required
           formControlName="email"
+          data-cy="email"
         />
         <mat-icon matSuffix>email</mat-icon>
         <mat-error
@@ -74,6 +77,7 @@
           aria-label="telefoonNummer"
           required
           formControlName="telefoonNummer"
+          data-cy="telefoonNummer"
         />
         <mat-icon matSuffix>phone</mat-icon>
         <mat-error
@@ -97,6 +101,7 @@
           aria-label="GeboorteDatum"
           required
           formControlName="geboorteDatum"
+          data-cy="geboorteDatum"
         />
 
         <mat-error
@@ -118,6 +123,7 @@
           aria-label="DatumInDienst"
           required
           formControlName="datumInDienst"
+          data-cy="datumInDienst"
         />
         <mat-error
           *ngIf="
@@ -129,7 +135,7 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <button type="submit" mat-raised-button [disabled]="!personeelFG.valid">
+    <button  data-cy="btnsubmit" type="submit" mat-raised-button [disabled]="!personeelFG.valid">
       Save
     </button>
   </form>
