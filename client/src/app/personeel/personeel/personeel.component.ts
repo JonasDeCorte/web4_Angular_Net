@@ -45,13 +45,14 @@ export class PersoneelComponent implements OnInit {
     const persId = this.personeel ? this.personeel.id : null;
     this.onUpload(persId);
     console.log("Succes image uploaded");
-    this.refreshPage();
+
   
 
   }
   private onUpload(persoonId: number)
   {
-    this.personeelDataService.addImage(this.fileToUpload,persoonId).subscribe();
+    console.log(this.fileToUpload);
+    this.personeelDataService.addImage(this.fileToUpload,persoonId).subscribe(result => this.refreshPage());
   }
  
   refreshPage() {
