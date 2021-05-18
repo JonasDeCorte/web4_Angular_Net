@@ -135,13 +135,18 @@
         </mat-error>
       </mat-form-field>
     </div>
-    <button  data-cy="btnsubmit" type="submit" mat-raised-button [disabled]="!personeelFG.valid">
+    <button
+      data-cy="btnsubmit"
+      type="submit"
+      mat-raised-button
+      [disabled]="!personeelFG.valid"
+    >
       Save
     </button>
   </form>
   <app-bewoner (newItemEvent)="addBewoner($event)"> </app-bewoner>
   <ul>
-    <li *ngFor="let bewoner of bewoners">{{bewoner.name}}</li>
+    <li *ngFor="let bewoner of bewoners">{{ bewoner.name }}</li>
   </ul>
 </mat-card>
 

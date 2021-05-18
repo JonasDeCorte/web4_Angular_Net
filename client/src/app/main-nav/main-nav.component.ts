@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.css']
+  styleUrls: ['./main-nav.component.css'],
 })
 export class MainNavComponent {
   public userName: string;
@@ -21,22 +21,21 @@ export class MainNavComponent {
       shareReplay()
     );
 
-    constructor(
-      private breakpointObserver: BreakpointObserver,
-      private _authenticationService: AuthenticationService,
-      private _router: Router
-    ) { _authenticationService.user$.subscribe(l => this.userName = l);}
-    logout() {
-      this._authenticationService.logout();
-    }
-    login() {
-      console.log('login');
-      this._router.navigateByUrl('/login');
-    
-    }
-    public register()
-    {
-      this._router.navigateByUrl('/register');
-    }
-
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private _authenticationService: AuthenticationService,
+    private _router: Router
+  ) {
+    _authenticationService.user$.subscribe((l) => (this.userName = l));
+  }
+  logout() {
+    this._authenticationService.logout();
+  }
+  login() {
+    console.log('login');
+    this._router.navigateByUrl('/login');
+  }
+  public register() {
+    this._router.navigateByUrl('/register');
+  }
 }

@@ -1,49 +1,95 @@
 <div class="container">
-    <h3 mat-dialog-title>bewoner id: {{data.id}}</h3>
-  
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
-      <div class="form">
-        <mat-form-field color="accent">
-          <input  matInput #input class="form-control" placeholder="Id" [(ngModel)]="data.id" name="id" readonly >
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
+  <h3 mat-dialog-title>bewoner id: {{ data.id }}</h3>
 
-      <div class="form">
-        <mat-form-field color="accent">
-          <textarea matInput #input class="form-control" placeholder="name" [(ngModel)]="data.name" name="name" required ></textarea>
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-  
-      
-      <div class="form">
-        <mat-form-field color="accent">
-      
-          <input [ngModel]="data.geboorteDatum | date:'dd/MM/yyyy'"  type="date" matInput #inputstate class="form-control" placeholder="geboorteDatum"  [(ngModel)]="data.geboorteDatum" name="geboorteDatum" required >
-          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-        </mat-form-field>
-      </div>
-      <div class="form">
+  <form class="mat-dialog-content" (ngSubmit)="(submit)" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field color="accent">
+        <input
+          matInput
+          #input
+          class="form-control"
+          placeholder="Id"
+          [(ngModel)]="data.id"
+          name="id"
+          readonly
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <textarea
+          matInput
+          #input
+          class="form-control"
+          placeholder="name"
+          [(ngModel)]="data.name"
+          name="name"
+          required
+        ></textarea>
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input
+          [ngModel]="data.geboorteDatum | date: 'dd/MM/yyyy'"
+          type="date"
+          matInput
+          #inputstate
+          class="form-control"
+          placeholder="geboorteDatum"
+          [(ngModel)]="data.geboorteDatum"
+          name="geboorteDatum"
+          required
+        />
+        <mat-error *ngIf="formControl.invalid">{{
+          getErrorMessage()
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="form">
       <mat-form-field>
-        <mat-select name="eetOpKamer" placeholder="eetOpKamer"  [(ngModel)]="data.eetOpKamer">
+        <mat-select
+          name="eetOpKamer"
+          placeholder="eetOpKamer"
+          [(ngModel)]="data.eetOpKamer"
+        >
           <mat-option [value]="true">ja ik eet op kamer</mat-option>
           <mat-option [value]="false">neen ik eet niet op kamer</mat-option>
         </mat-select>
       </mat-form-field>
-      </div>
-      <div class="form">
+    </div>
+    <div class="form">
       <mat-form-field>
-        <mat-select  placeholder="wordtGehaald" [(ngModel)]="data.wordtGehaald" name="wordtGehaald">
+        <mat-select
+          placeholder="wordtGehaald"
+          [(ngModel)]="data.wordtGehaald"
+          name="wordtGehaald"
+        >
           <mat-option [value]="true">ja ik word gehaald</mat-option>
           <mat-option [value]="false">neen ik word niet gehaald </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-      <div mat-dialog-actions>
-        <button mat-button [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1" (click)="stopEdit()">Save</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-      </div>
-    </form>
-  </div>
+    <div mat-dialog-actions>
+      <button
+        mat-button
+        [type]="submit"
+        [disabled]="!formControl.valid"
+        [mat-dialog-close]="1"
+        (click)="stopEdit()"
+      >
+        Save
+      </button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</div>

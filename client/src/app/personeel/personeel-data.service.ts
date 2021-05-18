@@ -17,7 +17,7 @@ import { Personeel } from './personeel/personeel.model';
 export class PersoneelDataService {
   private _reloadPersoneel$ = new BehaviorSubject<boolean>(true);
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
   constructor(private http: HttpClient) {}
 
@@ -33,22 +33,23 @@ export class PersoneelDataService {
     let params = new HttpParams();
     params = name ? params.append('name', name) : params;
     params = functie ? params.append('functie', functie) : params;
-    return this.http.get(`${environment.apiUrl}/Personeel/`, { params }).pipe(tap(console.log),
-    shareReplay(1),
+    return this.http.get(`${environment.apiUrl}/Personeel/`, { params }).pipe(
+      tap(console.log),
+      shareReplay(1),
       catchError(this.handleError),
       map((list: any[]): Personeel[] => list.map(Personeel.fromJSON))
     );
   }
-  
+
   getPersonen$(name?: string, functie?: string) {
     return this._reloadPersoneel$.pipe(
       switchMap(() => this.fetchPersonen$(name, functie))
     );
   }
-   getPersoneel$(id: string): Observable<Personeel> {
+  getPersoneel$(id: string): Observable<Personeel> {
     return this.http
       .get(`${environment.apiUrl}/Personeel/${id}`)
-      .pipe(catchError(this.handleError), map(Personeel.fromJSON)); // returns just one personeel, as json
+      .pipe(catchError(this.handleError), map(Personeel.fromJSON));
   }
   addNewPersoneel(personeel: Personeel) {
     return this.http
@@ -69,7 +70,7 @@ export class PersoneelDataService {
 
     return this.http
       .post(`${environment.apiUrl}/Personeel/addImage/${persoonId}`, formData)
-      .pipe(map((a: any): string => a));      
+      .pipe(map((a: any): string => a));
   }
   public getImage(id: number): Observable<any[]> {
     return this.http.get(`${environment.apiUrl}/Personeel/getImage/${id}`).pipe(

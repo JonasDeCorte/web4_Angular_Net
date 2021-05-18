@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Personeel } from '../personeel/personeel.model';
 import { NotificationServiceService } from '../../notification-service.service';
 import { PersoneelDataService } from '../personeel-data.service';
@@ -51,15 +47,6 @@ export class AddPersoneelComponent implements OnInit {
       telefoonNummer: ['', [Validators.required]],
     });
   }
-/*   getBewoner(id: string){
-    this._bewonerDataService.getBewoner$(id).subscribe( (data) => {
-      this.bewonersToAdd.push(data);
-      console.log(data);
-    },
-    (error) => {
-      console.log(error);
-    }
-  ); */
   createPersoon() {
     console.log(this.bewoners);
     let bewonersArray = this.bewoners.map(Bewoner.fromJSON);
@@ -69,9 +56,9 @@ export class AddPersoneelComponent implements OnInit {
       this.personeelFG.value.geboorteDatum,
       this.personeelFG.value.datumInDienst,
       this.personeelFG.value.email,
-      this.personeelFG.value.telefoonNummer,
-      );
-    bewonersArray.forEach(x => personeel.addBewoner(x));
+      this.personeelFG.value.telefoonNummer
+    );
+    bewonersArray.forEach((x) => personeel.addBewoner(x));
     this._personeelDataService
       .addNewPersoneel(personeel)
       .pipe(
@@ -86,16 +73,16 @@ export class AddPersoneelComponent implements OnInit {
         );
         this.router.navigate(['/personeel/list']);
       });
-      bewonersArray.forEach(x => {
-        this._bewonerDataService.deleteBewoner(x.id);
-      })
-    }
+    bewonersArray.forEach((x) => {
+      this._bewonerDataService.deleteBewoner(x.id);
+    });
+  }
   onSubmit() {
     this.submitted = true;
     if (this.personeelFG.invalid) {
       return;
     }
-      this.createPersoon();  
+    this.createPersoon();
   }
   getErrorMessage(errors: any): string {
     if (errors.required) {

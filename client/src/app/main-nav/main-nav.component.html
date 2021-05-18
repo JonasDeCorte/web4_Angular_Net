@@ -1,8 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <mat-nav-list>
       <a mat-list-item [routerLink]="['personeel/list']">personeel lijst</a>
       <a mat-list-item [routerLink]="['personeel/add']">add personeel</a>
@@ -19,18 +23,40 @@
         *ngIf="isHandset$ | async"
       >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
+      </button>
       <span class="fill-space"></span>
       <span *ngIf="loggedInUser$ | async as user; else loginTemplate">
         {{ user }}
-        <button style="margin: 5px;" mat-raised-button color="accent" (click)="logout()">logout</button>
+        <button
+          style="margin: 5px"
+          mat-raised-button
+          color="accent"
+          (click)="logout()"
+        >
+          logout
+        </button>
       </span>
       <ng-template #loginTemplate>
         <span>
           <div *ngIf="userName == null">
-            <button data-cy="image" style="margin: 5px;" (click)="register()" mat-raised-button color="accent">Register</button>
-            <button style="margin: 5px;" (click)="login()" mat-raised-button color="accent">login</button>
-         </div>
+            <button
+              data-cy="image"
+              style="margin: 5px"
+              (click)="register()"
+              mat-raised-button
+              color="accent"
+            >
+              Register
+            </button>
+            <button
+              style="margin: 5px"
+              (click)="login()"
+              mat-raised-button
+              color="accent"
+            >
+              login
+            </button>
+          </div>
         </span>
       </ng-template>
     </mat-toolbar>

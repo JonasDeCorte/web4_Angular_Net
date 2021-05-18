@@ -29,12 +29,12 @@ describe('My First Test', function() {
   });
  it('delete while showing', () => {
   cy.server();
-    // check we have two before we start
+
     cy.visit('/');
     cy.get('[data-cy=personeelCard]').should('have.length', 10);
-    // click the second delete button
+
     cy.get('[data-cy=personeelList').find('[data-cy=delete]').eq(9).click();
-    // the newly added one should be deleted (and our view automatically updated)
+
     cy.get('[data-cy=personeelCard]').should('have.length', 9);
   });
 });

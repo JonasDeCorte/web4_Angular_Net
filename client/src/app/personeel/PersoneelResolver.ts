@@ -1,7 +1,7 @@
 import {
   Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
 } from '@angular/router';
 import { Personeel } from './personeel/personeel.model';
 import { Injectable } from '@angular/core';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { PersoneelDataService } from './personeel-data.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PersoneelResolver implements Resolve<Personeel> {
   constructor(private personeelService: PersoneelDataService) {}

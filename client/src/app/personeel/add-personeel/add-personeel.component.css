@@ -1,11 +1,11 @@
-.center{
-    margin: auto;
-    text-align: center;
-    width: 100%;
-    }
-div.container{
-    margin: 0px 40px;
+.center {
+  margin: auto;
+  text-align: center;
+  width: 100%;
 }
-form.normal-form{
-    margin: 10px;
+div.container {
+  margin: 0px 40px;
+}
+form.normal-form {
+  margin: 10px;
 }

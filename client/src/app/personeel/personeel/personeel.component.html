@@ -1,7 +1,7 @@
 <mat-card class="center">
   <mat-card-header>
-    <mat-card-title data-cy=personeel-title class="title">
-      <div class="divlayout">     
+    <mat-card-title data-cy="personeel-title" class="title">
+      <div class="divlayout">
         <mat-icon>badge</mat-icon>
         {{ personeel.name }}
       </div>
@@ -10,31 +10,43 @@
   </mat-card-header>
   <mat-card-content>
     <p>
-      Begonnen op {{ personeel.datumInDienst | date: 'fullDate'}} <br> Geboren op  {{ personeel.geboorteDatum | date: 'fullDate'}}
+      Begonnen op {{ personeel.datumInDienst | date: "fullDate" }} <br />
+      Geboren op {{ personeel.geboorteDatum | date: "fullDate" }}
     </p>
     <div class="fotoKader">
       <p class="imageAlt" *ngIf="image == null">no image provided</p>
-      <img *ngIf="image != null" mat-card-image [src]="image" alt="Employee image">
+      <img
+        *ngIf="image != null"
+        mat-card-image
+        [src]="image"
+        alt="Employee image"
+      />
       <div *ngIf="image == null">
-        <button data-cy="image" type="file" mat-button accept="image/*" (click)="fileInput.click()">Select File</button>
+        <button
+          type="file"
+          mat-button
+          accept="image/*"
+          (click)="fileInput.click()"
+        >
+          Select File
+        </button>
       </div>
     </div>
     <div>
       <ul>
-        <li *ngFor="let bewoner of bewoners">{{bewoner.name}}</li>
+        <li *ngFor="let bewoner of bewoners">{{ bewoner.name }}</li>
       </ul>
     </div>
-    
   </mat-card-content>
-  <mat-card-actions data-cy="parent"  class="center">
+  <mat-card-actions data-cy="parent" class="center">
     <button data-cy="delete" (click)="deletePersoon()">
       <mat-icon>delete_forever</mat-icon>
     </button>
     <input
-    style="display: none"
-    type="file" (change)="onFileChanged($event)"
-    #fileInput>
- 
+      style="display: none"
+      type="file"
+      (change)="onFileChanged($event)"
+      #fileInput
+    />
   </mat-card-actions>
-  
 </mat-card>

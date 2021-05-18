@@ -8,9 +8,8 @@ describe('BewonerFormDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BewonerFormDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [BewonerFormDialogComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

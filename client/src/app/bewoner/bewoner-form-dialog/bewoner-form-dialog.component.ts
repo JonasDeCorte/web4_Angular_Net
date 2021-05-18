@@ -20,7 +20,6 @@ export class BewonerFormDialogComponent implements OnInit {
   
     formControl = new FormControl('', [
       Validators.required
-      // Validators.email,
     ]);
     getErrorMessage() {
       return this.formControl.hasError('required') ? 'Required field' :
