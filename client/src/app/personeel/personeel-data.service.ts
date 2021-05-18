@@ -1,9 +1,11 @@
 import {
   HttpClient,
   HttpErrorResponse,
+  HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BewonerResolverService } from 'app/bewoner/bewoner-resolver.service';
 import { environment } from 'environments/environment';
 import { BehaviorSubject } from 'rxjs';
 import { throwError } from 'rxjs';
@@ -15,7 +17,9 @@ import { Personeel } from './personeel/personeel.model';
 })
 export class PersoneelDataService {
   private _reloadPersoneel$ = new BehaviorSubject<boolean>(true);
-
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   constructor(private http: HttpClient) {}
   get personen$(): Observable<Personeel[]> {
     return this.http.get(`${environment.apiUrl}/Personeel/`).pipe(

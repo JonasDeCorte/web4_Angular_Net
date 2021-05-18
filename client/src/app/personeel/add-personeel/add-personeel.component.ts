@@ -62,6 +62,7 @@ export class AddPersoneelComponent implements OnInit {
   ); */
   createPersoon() {
     console.log(this.bewoners);
+    let bewonersArray = this.bewoners.map(Bewoner.fromJSON);
     const personeel = new Personeel(
       this.personeelFG.value.name,
       this.personeelFG.value.name,
@@ -69,8 +70,8 @@ export class AddPersoneelComponent implements OnInit {
       this.personeelFG.value.datumInDienst,
       this.personeelFG.value.email,
       this.personeelFG.value.telefoonNummer,
-    );
-    this.bewoners.forEach(x => personeel.addBewoner(x));
+      );
+    bewonersArray.forEach(x => personeel.addBewoner(x));
     this._personeelDataService
       .addNewPersoneel(personeel)
       .pipe(
@@ -85,6 +86,9 @@ export class AddPersoneelComponent implements OnInit {
         );
         this.router.navigate(['/personeel/list']);
       });
+      bewonersArray.forEach(x => {
+        this._bewonerDataService.deleteBewoner(x.id);
+      })
     }
   onSubmit() {
     this.submitted = true;

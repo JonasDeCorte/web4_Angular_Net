@@ -4,7 +4,7 @@ export interface BewonerJson {
     id: number;
     name: string;
     geboorteDatum: Date;
-    eetOpKamer: Boolean;
+    eetOpKamer: boolean;
     wordtGehaald: boolean;
    // personeel: Personeel;
   }
@@ -13,8 +13,8 @@ export class Bewoner {
     constructor(
         private _name: string,
         private _geboorteDatum : Date,
-        private _eetOpKamer: Boolean,
-        private _wordtGehaald: Boolean,
+        private _eetOpKamer: boolean,
+        private _wordtGehaald: boolean,
        // private _personeel: Personeel,  
       ) {}
       static fromJSON(json: BewonerJson): Bewoner {
@@ -30,7 +30,6 @@ export class Bewoner {
       }
       toJSON(): BewonerJson{
         return <BewonerJson>{
-          id : this._id,
           name: this._name,
           geboorteDatum: this._geboorteDatum,
           eetOpKamer: this._eetOpKamer,
@@ -49,14 +48,14 @@ export class Bewoner {
         return this._geboorteDatum;
     }
     set geboorteDatum(geboorteDatum : Date){this._geboorteDatum = geboorteDatum;}
-    get eetOpKamer(): Boolean{
+    get eetOpKamer(): boolean{
         return this._eetOpKamer;
     }
-    set eetOpKamer(eetOpKamer : Boolean){this._eetOpKamer = eetOpKamer;}
-    get wordtGehaald(): Boolean{
+    set eetOpKamer(eetOpKamer : boolean){this._eetOpKamer = eetOpKamer;}
+    get wordtGehaald(): boolean{
         return this._wordtGehaald;
     }
-    set wordtGehaald(wordtGehaald : Boolean){this._wordtGehaald = wordtGehaald;}
+    set wordtGehaald(wordtGehaald : boolean){this._wordtGehaald = wordtGehaald;}
   /*   get personeel(): Personeel {return this._personeel;}
     set personeel(persoon: Personeel){this._personeel = persoon;}
      */

@@ -7,7 +7,7 @@ interface PersoneelJson {
     datumInDienst : Date;
      email: string;
      telefoonNummer: string;
-     bewoners: BewonerJson[];
+     bewoners: Bewoner[];
   }
 export class Personeel {
   private _id: number; 
@@ -42,7 +42,7 @@ export class Personeel {
           datumInDienst: this.datumInDienst,
           email: this.email,
           telefoonNummer: this.telefoonNummer,
-          bewoners: this.bewoners.map(bewoner => bewoner.toJSON())
+          bewoners: this.bewoners.map(bew => bew.toJSON())
         };
       }
       
