@@ -43,8 +43,10 @@ namespace RestApi.Data.Repositories
         public IEnumerable<Personeel> GetBy(string name = null, string functie = null)
         {
             var PersoneelsLijstFiltered = _personeel.Include(x => x.Image).Include(x => x.Bewoners).AsQueryable();
+            
             if (!string.IsNullOrEmpty(name))
                 PersoneelsLijstFiltered = _personeel.Where(r => r.Name.IndexOf(name) >= 0);
+           
             if (!string.IsNullOrEmpty(functie))
                 PersoneelsLijstFiltered = _personeel.Where(r => r.Functie==functie);
             return PersoneelsLijstFiltered.OrderBy(r => r.Name).ToList();

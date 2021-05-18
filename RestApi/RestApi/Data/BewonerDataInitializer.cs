@@ -35,12 +35,12 @@ namespace RestApi.Data
                 _dbContext.SaveChanges();
                 ICollection<Personeel> persooneelsLijst = new List<Personeel>();
                 Personeel persoon;
-                string functie = "";
+              
                 for (int j = 1; j < 10; j++)
                 {
-                    functie = j % 2 == 0 ? functie = "Keuken" : functie = "Zaal";
+                   
                     
-                    persoon = new Personeel { Name = $"{j}test", Functie = functie, GeboorteDatum = DateTime.Now, DatumInDienst = DateTime.Now, Email = $"{j}test@Hogent.be", TelefoonNummer = "0478194517", Straat = "erkegemstraat", HuisNummer = $"{j}10", Land = "belgie", PostCode = "8020" };
+                    persoon = new Personeel { Name = $"{j}test", Functie = j % 2 == 0 ?  "Keuken" :  "Zaal", GeboorteDatum = DateTime.Now, DatumInDienst = DateTime.Now, Email = $"{j}test@Hogent.be" };
 
                     persooneelsLijst.Add(persoon);
                 }
@@ -49,12 +49,9 @@ namespace RestApi.Data
 
                 //seeding the database with bewoners, see DBContext     
                 ICollection<Bewoner> bewoners = new List<Bewoner>();
-                Bewoner bewoner;
-                Boolean value1, value2;
+                Bewoner bewoner;            
                 for (int i = 1; i < 10; i++) {
-                    value1 = i % 2 == 0 ? value1 = true : value1 = false;
-                    value2 = i % 2 == 0 ? value2 = false : value2 = true;
-                    bewoner = new Bewoner {  Name = $"{i}test", EetOpKamer = value1, WordtGehaald = value2, GeboorteDatum = DateTime.Now, Personeel = _dbContext.Personeels.FirstOrDefault(x => x.Id == i)};
+                    bewoner = new Bewoner { Name = $"{i}test", EetOpKamer = i % 2 == 0, WordtGehaald = i % 2 != 0, GeboorteDatum = DateTime.Now, /*Personeel = _dbContext.Personeels.FirstOrDefault(x => x.Id == i)*/ };
                     bewoners.Add(bewoner);
                 }
                 _dbContext.Bewoners.AddRange(bewoners);

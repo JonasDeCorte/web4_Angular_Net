@@ -19,7 +19,7 @@ namespace RestApi.Data.Repositories
             _bewoners = dbContext.Bewoners;
         }
 
-       
+
 
         public void Add(Bewoner bewoner)
         {
@@ -33,12 +33,12 @@ namespace RestApi.Data.Repositories
 
         public IEnumerable<Bewoner> GetAll()
         {
-            return _bewoners.Include(x => x.Personeel).ThenInclude(x => x.Image).ToList();
+            return _bewoners.ToList();
         }
 
         public Bewoner GetBy(int id)
         {
-            return _bewoners.Include(x => x.Personeel).ThenInclude(x => x.Image).SingleOrDefault(r => r.Id == id);
+            return _bewoners.SingleOrDefault(r => r.Id == id);
         }
 
         public IEnumerable<Bewoner> GetBy(string name = null, bool? EetOpKamer = null, bool? WordtGehaald = null)
@@ -64,7 +64,7 @@ namespace RestApi.Data.Repositories
 
         public bool TryGetBewoner(int id, out Bewoner bewoner)
         {
-            bewoner = _context.Bewoners.Include(x => x.Personeel).ThenInclude(x => x.Image).FirstOrDefault(t => t.Id == id);
+            bewoner = _context.Bewoners.FirstOrDefault(t => t.Id == id);
             return bewoner != null;
         }
 

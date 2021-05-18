@@ -22,16 +22,6 @@ namespace RestApi.Models
      
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-      
-        public string TelefoonNummer { get; set; }
-      
-        public string Straat { get; set; }
-   
-        public string HuisNummer { get; set; }
-     
-        public string PostCode { get; set; }
-       
-        public string Land { get; set; }
         public ICollection<Bewoner> Bewoners { get;  set; }
         public Image Image { get; set; }
 

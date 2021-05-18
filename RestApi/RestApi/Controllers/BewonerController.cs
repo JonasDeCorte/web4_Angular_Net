@@ -31,7 +31,7 @@ namespace RestApi.Controllers
         /// <param name="naam">de naam van de bewoner</param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
+       [Authorize]
         public IEnumerable<Bewoner> GetBewoners(string naam) {
             if(naam == null)
                 return _bewonerRepository.GetAll().OrderBy(r => r.Name);
@@ -85,11 +85,16 @@ namespace RestApi.Controllers
         [Authorize]
         public IActionResult PutBewoner(int id, Bewoner bewoner)
         {
+           Bewoner bewonerDB =  _bewonerRepository.GetBy(id);
             if (id != bewoner.Id)
             {
                 return BadRequest();
             }
-            _bewonerRepository.Update(bewoner);
+            bewonerDB.Name = bewoner.Name;
+            bewonerDB.WordtGehaald = bewoner.WordtGehaald;
+            bewonerDB.GeboorteDatum = bewoner.GeboorteDatum;
+            bewonerDB.EetOpKamer = bewoner.EetOpKamer;     
+            _bewonerRepository.Update(bewonerDB);
             _bewonerRepository.SaveChanges();
             // 204(no content) of 200 + bewoner 
             return NoContent();

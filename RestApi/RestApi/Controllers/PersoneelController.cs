@@ -36,7 +36,7 @@ namespace RestApi.Controllers
         /// <returns></returns>
         /// 
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize]
         public IEnumerable<Personeel> GetPersoneels(string naam = null, string functie = null)
         {
             if (string.IsNullOrEmpty(naam) && string.IsNullOrEmpty(functie))
@@ -46,7 +46,6 @@ namespace RestApi.Controllers
         }
 
         [HttpPost("addImage/{id}")]
-        [AllowAnonymous]
         [Authorize]
         public ActionResult<String> AddImage(int id)
         {
@@ -116,7 +115,7 @@ namespace RestApi.Controllers
         public ActionResult<Personeel> PostPersoneel(Personeel Personeel)
         {
             try
-            {
+            { 
                 _personeelRepository.Add(Personeel);
                 _personeelRepository.SaveChanges();
                 return CreatedAtAction(nameof(GetPersoneel), new { id = Personeel.Id }, Personeel);
